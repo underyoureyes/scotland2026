@@ -22,16 +22,15 @@
   "stays": [
     {
       "id": "gretna",
-      "name": "The Hazeldene Hotel",
-      "location": "Annan Road, Gretna, DG16 5DQ",
+      "name": "Gretna Airbnb",
+      "location": "Gretna, DG16",
       "nights": 1,
       "checkin": "2026-05-23",
       "checkout": "2026-05-24",
-      "type": "hotel",
-      "url": "https://www.expedia.co.uk/Gretna-Hotels-The-Hazeldene-Hotel.h128883093.Hotel-Information?expediaPropertyId=128883093&chkin=2026-05-23&chkout=2026-05-24&rm1=a2&regionId=182776&destType=MARKET&sort=RECOMMENDED",
-      "cancellation_deadline": "2026-05-22",
-      "cost_gbp": 75,
-      "confirm_socket_with_host": false
+      "type": "airbnb",
+      "url": "https://www.airbnb.co.uk/rooms/1339041715570625389?adults=2&check_in=2026-05-23&check_out=2026-05-24",
+      "cost_gbp": 0,
+      "confirm_socket_with_host": true
     },
     {
       "id": "rowardennan",
@@ -126,7 +125,7 @@
         "Leicester Forest East Services M1 J21",
         "Tebay Services Westmorland M6 J38 northbound Cumbria",
         "Gretna Green Famous Blacksmiths Shop DG16",
-        "The Hazeldene Hotel Gretna DG16 5DQ"
+        "Gretna DG16"
       ],
       "stops": [
         { "name": "Leicester Forest East Services", "type": "dog_walk", "detail": "~100 miles from Pulloxhill. Grass area for dogs. Coffee stop. Aim ~10:45.", "maps_query": "Leicester Forest East Services M1 LE3 3GB" },
@@ -135,13 +134,13 @@
       ],
       "eating": [
         { "name": "Tebay Services", "type": "lunch", "dog_friendly": true },
-        { "name": "The Hazeldene Hotel", "type": "dinner", "dog_friendly": true }
+        { "name": "Smiths at Gretna Green", "type": "dinner", "dog_friendly": true, "detail": "Dog-friendly restaurant on site — book a table.", "url": "https://www.smithsgretnagreen.com", "maps_query": "Smiths at Gretna Green Restaurant DG16 5EA" }
       ],
       "notes": [
         "Fill tank before leaving Pulloxhill",
         "Top up at Tebay — do not push past it on less than half a tank",
         "Leave by 09:00 — M6 busy Saturday afternoons",
-        "Plug in BMW on arrival at The Hazeldene Hotel"
+        "Plug in BMW on arrival — confirm 3-pin socket with Airbnb host before trip"
       ]
     },
     {
@@ -151,7 +150,7 @@
       "leg_miles": 220, "leg_drive_hours": 4.0,
       "total_walk_miles": 2.0,
       "map_waypoints": [
-        "The Hazeldene Hotel Gretna DG16 5DQ",
+        "Gretna DG16",
         "Chatelherault Country Park Hamilton ML3 7UE",
         "Loch Lomond Shores Balloch G83 8QL",
         "Co-op Drymen Stirlingshire",
