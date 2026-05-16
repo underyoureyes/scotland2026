@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Scotland Trip 2026 — Route Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #1a1a2e;
+    --mist:      #e8edf5;
+    --sky:       #2563a8;
+    --sky-light: #dbeafe;
+    --heather:   #6b4f7a;
+    --gold:      #c9963a;
+    --gold-pale: #fef3d0;
+    --green:     #2d6a4f;
+    --green-pale:#d8f3dc;
+    --amber:     #e07b39;
+    --amber-pale:#fff0e4;
+    --slate:     #475569;
+    --line:      #d1d9e6;
+    --white:     #ffffff;
+    --card-bg:   #f7f9fd;
+    --radius:    14px;
+    --shadow:    0 2px 16px rgba(26,26,46,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--mist);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.5;
+    padding-bottom: 40px;
+  }
+
+  /* ── Hero ─────────────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(160deg, #1a1a2e 0%, #1e3a5f 55%, #2563a8 100%);
+    padding: 52px 20px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .hero-sub {
+    color: #93c5fd;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: #e0f2fe;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ── Nav tabs ─────────────────────────────────────────────── */
+  .nav-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .nav-scroll {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 12px;
+    gap: 8px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-scroll::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    flex-shrink: 0;
+    background: var(--mist);
+    border: none;
+    border-radius: 20px;
+    padding: 7px 15px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--slate);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn.active {
+    background: var(--sky);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(37,99,168,0.3);
+  }
+
+  /* ── Content ──────────────────────────────────────────────── */
+  .content { padding: 16px; max-width: 560px; margin: 0 auto; }
+
+  .day-section { display: none; }
+  .day-section.active { display: block; }
+
+  /* ── Day header card ──────────────────────────────────────── */
+  .day-header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563a8 100%);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .day-header::after {
+    content: '';
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .day-number {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #93c5fd;
+    margin-bottom: 4px;
+  }
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .day-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .day-stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #bfdbfe;
+  }
+  .day-stat span { font-weight: 600; color: #fff; }
+
+  /* ── Big map button ───────────────────────────────────────── */
+  .map-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--green);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 12px rgba(45,106,79,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    -webkit-touch-callout: none;
+  }
+  .map-btn:active { transform: scale(0.97); box-shadow: 0 1px 6px rgba(45,106,79,0.3); }
+  .map-btn .map-icon { font-size: 22px; }
+  .map-btn-text { line-height: 1.2; }
+  .map-btn-text small { display: block; font-size: 12px; font-weight: 400; opacity: 0.85; margin-top: 1px; }
+
+  /* ── Stops list ───────────────────────────────────────────── */
+  .stops-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .stops-card-title {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--line);
+    padding: 11px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+  .stop-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+  }
+  .stop-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 48px;
+    bottom: 0;
+    width: 2px;
+    background: var(--line);
+  }
+  .stop-left {
+    width: 60px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 14px;
+  }
+  .stop-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--mist);
+    border: 2px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    background: #fff;
+  }
+  .stop-dot.start { border-color: var(--green); background: var(--green-pale); }
+  .stop-dot.end   { border-color: var(--sky);   background: var(--sky-light); }
+  .stop-dot.warn  { border-color: var(--amber);  background: var(--amber-pale); }
+  .stop-dot.poi   { border-color: var(--heather); background: #f3eef7; }
+  .stop-dot.fuel  { border-color: var(--gold);   background: var(--gold-pale); }
+
+  .stop-right {
+    flex: 1;
+    padding: 12px 16px 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stop-item:last-child .stop-right { border-bottom: none; }
+
+  .stop-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .stop-detail {
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .stop-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--sky-light);
+    color: var(--sky);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .stop-link:active { background: #bfdbfe; }
+  .stop-link.green-link { background: var(--green-pale); color: var(--green); }
+  .stop-link.warn-link  { background: var(--amber-pale); color: var(--amber); }
+
+  /* ── Notes ────────────────────────────────────────────────── */
+  .notes-card {
+    background: var(--gold-pale);
+    border: 1px solid #f0c040;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .notes-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .notes-item {
+    font-size: 13px;
+    color: #5a3e00;
+    padding: 4px 0 4px 16px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .notes-item::before {
+    content: '•';
+    position: absolute;
+    left: 4px;
+    color: var(--gold);
+    font-weight: bold;
+  }
+
+  /* ── Overview tab ─────────────────────────────────────────── */
+  .overview-grid {
+    display: grid;
+    gap: 10px;
+  }
+  .ov-row {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.15s;
+  }
+  .ov-row:active { transform: scale(0.98); }
+  .ov-day-badge {
+    background: var(--sky);
+    color: #fff;
+    border-radius: 8px;
+    min-width: 44px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .ov-day-badge .dnum { font-size: 18px; line-height: 1; }
+  .ov-info { flex: 1; min-width: 0; }
+  .ov-date { font-size: 11px; color: var(--slate); margin-bottom: 2px; }
+  .ov-title { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .ov-miles { font-size: 12px; color: var(--slate); margin-top: 2px; }
+  .ov-arrow { color: var(--line); font-size: 18px; flex-shrink: 0; }
+
+  .ov-row.highlight .ov-day-badge { background: var(--gold); }
+
+  /* ── Emergency contacts ───────────────────────────────────── */
+  .contacts-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-icon { font-size: 20px; width: 28px; text-align: center; }
+  .contact-info { flex: 1; }
+  .contact-name { font-size: 14px; font-weight: 600; }
+  .contact-num  { font-size: 13px; color: var(--sky); }
+
+  /* ── Section labels ───────────────────────────────────────── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin: 18px 0 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Hero ─────────────────────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-title">Scotland 2026</div>
+  <div class="hero-sub">David &amp; Lesley · Koda &amp; Monty</div>
+  <div class="hero-meta">
+    <div class="hero-chip">🗓 23 May – 7 Jun</div>
+    <div class="hero-chip">🚗 BMW 530e</div>
+    <div class="hero-chip">16 days</div>
+    <div class="hero-chip">🐾 2 dogs</div>
+  </div>
+</div>
+
+<!-- ── Nav ──────────────────────────────────────────────────────────────────── -->
+<div class="nav-wrap">
+  <div class="nav-scroll">
+    <button class="nav-btn active" onclick="showDay('overview')">Overview</button>
+    <button class="nav-btn" onclick="showDay('d1')">Day 1</button>
+    <button class="nav-btn" onclick="showDay('d2')">Day 2</button>
+    <button class="nav-btn" onclick="showDay('d3')">Day 3</button>
+    <button class="nav-btn" onclick="showDay('d4')">Day 4</button>
+    <button class="nav-btn" onclick="showDay('d5')">Day 5</button>
+    <button class="nav-btn" onclick="showDay('d6')">Day 6 ⭐</button>
+    <button class="nav-btn" onclick="showDay('d7')">Day 7</button>
+    <button class="nav-btn" onclick="showDay('d8')">Day 8</button>
+    <button class="nav-btn" onclick="showDay('d9')">Day 9 ⭐</button>
+    <button class="nav-btn" onclick="showDay('d10')">Day 10</button>
+    <button class="nav-btn" onclick="showDay('d11')">Day 11 ⭐</button>
+    <button class="nav-btn" onclick="showDay('d12')">Day 12</button>
+    <button class="nav-btn" onclick="showDay('d13')">Day 13 ⛳</button>
+    <button class="nav-btn" onclick="showDay('d14')">Day 14 ⛳</button>
+    <button class="nav-btn" onclick="showDay('d15')">Day 15</button>
+    <button class="nav-btn" onclick="showDay('d16')">Day 16</button>
+    <button class="nav-btn" onclick="showDay('contacts')">📞 SOS</button>
+  </div>
+</div>
+
+<!-- ── Content ───────────────────────────────────────────────────────────────── -->
+<div class="content">
+
+<!-- ════════════════════════════════════════════════════════════ OVERVIEW -->
+<div id="overview" class="day-section active">
+  <p class="section-label">All 16 days — tap any to navigate</p>
+  <div class="overview-grid">
+    <div class="ov-row" onclick="showDay('d1')">
+      <div class="ov-day-badge"><div class="dnum">1</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Sat 23 May</div>
+        <div class="ov-title">Pulloxhill → Gretna Green</div>
+        <div class="ov-miles">≈ 280 miles · Stop: Tebay Services</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d2')">
+      <div class="ov-day-badge"><div class="dnum">2</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Sun 24 May</div>
+        <div class="ov-title">Gretna → Rowardennan (Loch Lomond)</div>
+        <div class="ov-miles">≈ 220 miles · Stop: Loch Lomond Shores</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d3')">
+      <div class="ov-day-badge"><div class="dnum">3</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Mon 25 May 🚲</div>
+        <div class="ov-title">Inchcailloch Island + Loch Katrine Cruise</div>
+        <div class="ov-miles">≈ 30 miles local · Balmaha + Trossachs Pier</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d4')">
+      <div class="ov-day-badge"><div class="dnum">4</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Tue 26 May</div>
+        <div class="ov-title">WHW Walk + Doune Castle</div>
+        <div class="ov-miles">≈ 50 miles local · Ross Wood + Doune</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d5')">
+      <div class="ov-day-badge"><div class="dnum">5</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Wed 27 May ⛳</div>
+        <div class="ov-title">Rowardennan → Ballachulish + Golf</div>
+        <div class="ov-miles">≈ 93 miles · Tyndrum + Woodlands Glencoe</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row highlight" onclick="showDay('d6')">
+      <div class="ov-day-badge"><div class="dnum">6</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Thu 28 May ⭐</div>
+        <div class="ov-title">Gondola + Jacobite / ScotRail → Mallaig</div>
+        <div class="ov-miles">≈ 45 miles + train · Nevis Range + Fort William</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d7')">
+      <div class="ov-day-badge"><div class="dnum">7</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Fri 29 May</div>
+        <div class="ov-title">Ballachulish → Glendale, Skye</div>
+        <div class="ov-miles">≈ 142 miles · Eilean Donan + Kyle of Lochalsh</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d8')">
+      <div class="ov-day-badge"><div class="dnum">8</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Sat 30 May 🚲</div>
+        <div class="ov-title">Skye — Trotternish Loop</div>
+        <div class="ov-miles">≈ 75 miles local · Storr + Quiraing + Faerie Glen</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row highlight" onclick="showDay('d9')">
+      <div class="ov-day-badge"><div class="dnum">9</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Sun 31 May ⭐⛳</div>
+        <div class="ov-title">Stardust Boat + Sconser Golf + Talisker</div>
+        <div class="ov-miles">≈ 60 miles local · Portree + Sconser + Carbost</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d10')">
+      <div class="ov-day-badge"><div class="dnum">10</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Mon 1 Jun</div>
+        <div class="ov-title">Skye → Loch Ness (Brackla)</div>
+        <div class="ov-miles">≈ 180 miles · Plodda Falls + Dog Falls</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row highlight" onclick="showDay('d11')">
+      <div class="ov-day-badge"><div class="dnum">11</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Tue 2 Jun ⭐🚲</div>
+        <div class="ov-title">Loch Ness Cruise + Urquhart Castle</div>
+        <div class="ov-miles">≈ 30 miles local · Fort Augustus + Drumnadrochit</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d12')">
+      <div class="ov-day-badge"><div class="dnum">12</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Wed 3 Jun</div>
+        <div class="ov-title">Loch Ness → Edinburgh (via Cairngorms)</div>
+        <div class="ov-miles">≈ 171 miles · Cairngorms + House of Bruar</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d13')">
+      <div class="ov-day-badge"><div class="dnum">13</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Thu 4 Jun ⛳</div>
+        <div class="ov-title">St Andrews — Old Course Ballot + Town</div>
+        <div class="ov-miles">≈ 100 miles return · West Sands + Cathedral</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d14')">
+      <div class="ov-day-badge"><div class="dnum">14</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Fri 5 Jun ⛳</div>
+        <div class="ov-title">Musselburgh Golf + Edinburgh</div>
+        <div class="ov-miles">≈ 15 miles local · Musselburgh + City Centre</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d15')">
+      <div class="ov-day-badge"><div class="dnum">15</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Sat 6 Jun</div>
+        <div class="ov-title">Edinburgh → York (via coast)</div>
+        <div class="ov-miles">≈ 210 miles · Alnwick + Bamburgh + Lindisfarne</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+    <div class="ov-row" onclick="showDay('d16')">
+      <div class="ov-day-badge"><div class="dnum">16</div></div>
+      <div class="ov-info">
+        <div class="ov-date">Sun 7 Jun</div>
+        <div class="ov-title">York → Home (Pulloxhill)</div>
+        <div class="ov-miles">≈ 180 miles · Bettys + Tebay southbound</div>
+      </div><div class="ov-arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 1 -->
+<div id="d1" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 1 · Sat 23 May</div>
+    <div class="day-title">Pulloxhill → Gretna Green</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 280 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 5 hrs</span></div>
+      <div class="day-stat">⛽ <span>Fill at Tebay</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Pulloxhill,+Bedfordshire,+MK45+5HD/Tebay+Services,+M6+J38,+Cumbria/Smiths+at+Gretna+Green,+Springfield,+DG16+5EA" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Pulloxhill → Tebay → Gretna Green</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">🏠</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Pulloxhill, MK45 5HD — Depart by 09:00</div>
+        <div class="stop-detail">Fill tank before joining M1 northbound. Charge BMW overnight.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Pulloxhill+Bedfordshire+MK45+5HD" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot fuel">☕</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Tebay Services — Lunch &amp; fuel top-up (M6 J38)</div>
+        <div class="stop-detail">~175 miles in, ~13:00. Best motorway services in the UK — farm shop, outdoor seating, dog walk field. Top up fuel here.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Tebay+Services+Westmorland+M6+northbound" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Gretna Green Famous Blacksmiths Shop</div>
+        <div class="stop-detail">Walk the dog-friendly grounds. Quick photo stop. Museum not dog-friendly.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Gretna+Green+Famous+Blacksmiths+Shop+DG16" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏨</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Smiths at Gretna Green — Overnight</div>
+        <div class="stop-detail">Dinner on site. Fuel up at Gretna before bed. Plug in the BMW.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Smiths+at+Gretna+Green+Hotel+DG16" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.smithsgretnagreen.com" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Full tank before leaving + top-up at Tebay = comfortable range. Don't skip Tebay on less than half a tank.</div>
+    <div class="notes-item">M6 is busier Saturday afternoons — leave no later than 09:30.</div>
+    <div class="notes-item">Tebay: follow signs for NORTHBOUND services (southbound is a separate building).</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 2 -->
+<div id="d2" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 2 · Sun 24 May</div>
+    <div class="day-title">Gretna Green → Rowardennan</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 220 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 4 hrs</span></div>
+      <div class="day-stat">🛒 <span>Stock up at Drymen</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Smiths+at+Gretna+Green+DG16/Loch+Lomond+Shores+Balloch+G83/Drymen+Stirlingshire/Rowardennan+Loch+Lomond+G63" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Gretna → Balloch → Drymen → Rowardennan</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">🏨</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Gretna Green — Depart 09:00</div>
+        <div class="stop-detail">A74(M) → M74 → M73 → A82. All fast dual-carriageway to Balloch.</div>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🌊</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Loch Lomond Shores, Balloch — Coffee &amp; dog walk</div>
+        <div class="stop-detail">First sight of the loch. Waterfront cafés, short lochside path. ~1.5 hrs from Gretna.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Loch+Lomond+Shores+Balloch+G83" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot fuel">🛒</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Drymen Co-op — Supplies for 3 nights</div>
+        <div class="stop-detail">Last shop before Rowardennan. Stock up for 3 nights self-catering. Mon–Sat 07:00–22:00, Sun 08:00–20:00.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Co-op+Drymen+Stirlingshire" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏡</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Rowardennan Airbnb — 3 nights</div>
+        <div class="stop-detail">Last 7 miles from Drymen is single-track — take it slowly. Lochside walks from the door.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Rowardennan+Loch+Lomond+G63" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Single-track road from Balmaha to Rowardennan — use passing places, wave at locals.</div>
+    <div class="notes-item">Drymen is your last guaranteed supermarket for 3 days — don't skip it.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 3 -->
+<div id="d3" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 3 · Mon 25 May 🚲</div>
+    <div class="day-title">Inchcailloch Island + Loch Katrine Cruise</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 30 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 1 hr driving</span></div>
+      <div class="day-stat">🚢 <span>Book cruise online</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Rowardennan+Loch+Lomond/Balmaha+Boatyard+Loch+Lomond/Trossachs+Pier+Loch+Katrine+FK17" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Rowardennan → Balmaha → Trossachs Pier</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">⛴️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Balmaha — Inchcailloch Island Ferry</div>
+        <div class="stop-detail">5-min passenger ferry. 1.5-mile oak woodland loop, sandy bays. Dogs travel free. Call ahead day before.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Balmaha+Boatyard+Loch+Lomond" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.balmahaboatyard.co.uk" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">☕</div></div>
+      <div class="stop-right">
+        <div class="stop-name">St Mocha Coffee Shop, Balmaha — Lunch</div>
+        <div class="stop-detail">Excellent home-baking, dog-friendly outdoor seating.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=St+Mocha+Coffee+Shop+Balmaha" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🚢</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Trossachs Pier — SS Sir Walter Scott Cruise</div>
+        <div class="stop-detail">Iconic 1899 steamship on Loch Katrine. Dogs welcome (~£1). Book online in advance.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Trossachs+Pier+Loch+Katrine+FK17+8HZ" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.lochkatrine.com" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🚲</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Katrine Wheelz — E-bikes (optional)</div>
+        <div class="stop-detail">Also at Trossachs Pier. E-bikes from ~£35/day. Child trailers — call re: dogs: 01877 376316.</div>
+        <a class="stop-link" href="https://www.katrinewheelz.co.uk" target="_blank">🌐 Website</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Call Balmaha Boatyard the day before — ferry runs on demand in shoulder season.</div>
+    <div class="notes-item">Book Loch Katrine online for a guaranteed slot in May.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 4 -->
+<div id="d4" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 4 · Tue 26 May</div>
+    <div class="day-title">WHW Walk + Doune Castle</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 50 miles</span></div>
+      <div class="day-stat">🐾 <span>3 miles walking (Koda's pace)</span></div>
+      <div class="day-stat">🏰 <span>Doune Castle</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Rowardennan+Loch+Lomond/Ross+Wood+Rowardennan/Doune+Castle+FK16+6EA" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Rowardennan → Ross Wood → Doune Castle</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">🌲</div></div>
+      <div class="stop-right">
+        <div class="stop-name">WHW: Rowardennan → Ross Wood (3 miles total)</div>
+        <div class="stop-detail">Leave from the Airbnb. Flat lochside path — 1.5 miles each way. STOP at Ross Wood. Do NOT push on to Sallochy (too far for Koda).</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Ross+Wood+Rowardennan+Loch+Lomond" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Doune Castle, Doune FK16 6EA</div>
+        <div class="stop-detail">Monty Python Holy Grail filming location. Dogs welcome in grounds. ~40 min drive from Rowardennan.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Doune+Castle+Doune+FK16+6EA" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.historicenvironment.scot/visit-a-place/places/doune-castle/" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Koda's 5-mile daily limit — Ross Wood (3 miles total) is the right call. Don't let Monty drag you further.</div>
+    <div class="notes-item">Check Doune Castle opening times before going: historicenvironment.scot</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 5 -->
+<div id="d5" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 5 · Wed 27 May ⛳</div>
+    <div class="day-title">Rowardennan → Ballachulish</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 93 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 2 hrs 30 min</span></div>
+      <div class="day-stat">⛳ <span>Dragon's Tooth Golf</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Rowardennan+Loch+Lomond/Real+Food+Cafe+Tyndrum+FK20/Woodlands+Glencoe+PH49+4AA/Ballachulish+PH49" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Rowardennan → Tyndrum → Woodlands → Ballachulish</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🐟</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Real Food Café, Tyndrum — Lunch</div>
+        <div class="stop-detail">Best fish &amp; chips on the A82. Dog-friendly outdoor seating. An institution.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Real+Food+Cafe+Tyndrum+FK20" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://therealfoodcafe.com" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">⛳</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Woodlands Glencoe — Dragon's Tooth Golf (9 holes)</div>
+        <div class="stop-detail">Mountain backdrop. Club hire included. Turn up &amp; play — call 01855 811811. Dogs welcome on site.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Woodlands+Glencoe+PH49+4AA" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.woodlands.scot" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏔️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Glencoe Village — Short stop</div>
+        <div class="stop-detail">Walk the valley floor with dogs. NTS Visitor Centre if interested. Stunning scenery.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Glencoe+Village+Visitor+Centre+PH49" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏡</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Ballachulish Airbnb — 2 nights</div>
+        <div class="stop-detail">Base for gondola, train and Glencoe.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Ballachulish+Highland+PH49" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">A82 from Tarbet north is one of the great Highland drives — enjoy it.</div>
+    <div class="notes-item">Optional: Inverlochy Castle afternoon tea (Fort William, 3 miles north of Ballachulish) — book ahead.</div>
+    <div class="notes-item">Checkout from Rowardennan by 10:00.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 6 -->
+<div id="d6" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 6 · Thu 28 May ⭐</div>
+    <div class="day-title">Gondola + Train to Mallaig</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 45 miles</span></div>
+      <div class="day-stat">🚂 <span>4 hrs train</span></div>
+      <div class="day-stat">⚠️ <span>Jacobite TBC</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Ballachulish+PH49/Nevis+Range+Torlundy+Fort+William+PH33+6SW/Fort+William+Railway+Station+PH33" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open route in Maps<small>Ballachulish → Nevis Range → Fort William Station</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">🚠</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Nevis Range Gondola — 08:30 (DO FIRST)</div>
+        <div class="stop-detail">UK's only mountain gondola. 650m up in 12 min. Dogs free, on lead. Snowgoose Café at top for breakfast. Check mountain report the night before.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Nevis+Range+Torlundy+Fort+William+PH33+6SW" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.nevisrange.co.uk/activities/mountain-gondola/" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot warn">🚂</div></div>
+      <div class="stop-right">
+        <div class="stop-name">⚠️ OPTION A: Jacobite Steam Train (if running)</div>
+        <div class="stop-detail">NOT bookable yet — ORR regulatory dispute. Sign up for alerts. If open: book immediately, 2 separate tickets (Koda on one, Monty on other). 10:15 dep → Mallaig 12:25. ~£75–95pp.</div>
+        <a class="stop-link warn-link" href="https://westcoastrailways.co.uk/jacobite/steam-train-trip" target="_blank">🌐 Check status</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🚂</div></div>
+      <div class="stop-right">
+        <div class="stop-name">OPTION B: ScotRail Fort William → Mallaig</div>
+        <div class="stop-detail">Same route, same Glenfinnan Viaduct — diesel not steam. ~10:55 dep → Mallaig 12:45. Return 14:05 → FW 15:55. ~£15–20pp return. Dogs £1–3 each. No advance booking needed — buy on the day.</div>
+        <a class="stop-link green-link" href="https://www.scotrail.co.uk/train-times/fort-william-to-mallaig" target="_blank">🌐 ScotRail</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">⚓</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Mallaig Harbour — 1.5 hr stop</div>
+        <div class="stop-detail">Walk the harbour, fish &amp; chips at Jaffy's or lunch at Cornerstone. Dogs love the fishing smells.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Mallaig+Harbour+PH41" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Leave Ballachulish by 08:00 to reach Nevis Range for 08:30.</div>
+    <div class="notes-item">Gondola closed in high winds — check nevisrange.co.uk/mountain-report the night before.</div>
+    <div class="notes-item">ScotRail: no booking needed, buy at Fort William station on the day.</div>
+    <div class="notes-item">Jacobite: westcoastrailways.co.uk — register for email alerts.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 7 -->
+<div id="d7" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 7 · Fri 29 May</div>
+    <div class="day-title">Ballachulish → Glendale, Skye</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 142 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 3 hrs</span></div>
+      <div class="day-stat">⛽ <span>Fill at Kyle</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Ballachulish+PH49/Eilean+Donan+Castle+Dornie+IV40+8DX/Kyle+of+Lochalsh+IV40/Glendale+Isle+of+Skye+IV55" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Ballachulish → Eilean Donan → Kyle → Skye → Glendale</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Eilean Donan Castle, Dornie</div>
+        <div class="stop-detail">Most photographed castle in Scotland. Dogs welcome in grounds. Café on site. ~1 hr stop.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Eilean+Donan+Castle+Dornie+IV40+8DX" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.eileandonancastle.com" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot fuel">⛽</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Kyle of Lochalsh — FILL TANK HERE</div>
+        <div class="stop-detail">Last reliable fuel before Glendale. Glendale has nothing for 20+ miles. Don't skip this.</div>
+        <a class="stop-link warn-link" href="https://www.google.com/maps/search/?api=1&query=petrol+station+Kyle+of+Lochalsh+IV40" target="_blank">📍 Fuel station</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🌉</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Skye Bridge — Photo stop</div>
+        <div class="stop-detail">Toll-free since 2004. Lay-by on the Skye side for photos.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Skye+Bridge+Kyle+of+Lochalsh" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏔️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Portree — Optional coffee stop</div>
+        <div class="stop-detail">Skye's main town. Pretty harbour. Good coffee options on the square.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Portree+Harbour+Isle+of+Skye" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Dunvegan Castle — Optional detour</div>
+        <div class="stop-detail">On the route to Glendale. Historic seat of the MacLeods. Dogs welcome in grounds and walled garden.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Dunvegan+Castle+Isle+of+Skye+IV55" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.dunvegancastle.com" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏡</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Glendale Airbnb — 3 nights</div>
+        <div class="stop-detail">North-west Skye. Stunning sunsets. Neist Point nearby. Plug in the BMW.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Glendale+Isle+of+Skye+IV55" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Glendale road (B884) is relentlessly single-track — slow down, use passing places.</div>
+    <div class="notes-item">Sheep on the road everywhere on Skye from here — especially at dawn/dusk.</div>
+    <div class="notes-item">Checkout from Ballachulish by 10:00.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 8 -->
+<div id="d8" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 8 · Sat 30 May 🚲</div>
+    <div class="day-title">Skye Trotternish Loop</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 75 miles local</span></div>
+      <div class="day-stat">⏱ <span>Leave 08:30</span></div>
+      <div class="day-stat">🐾 <span>Lower paths only — Koda</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Glendale+Isle+of+Skye/Old+Man+of+Storr+Car+Park+Skye/Kilt+Rock+Viewpoint+Skye/Quiraing+Car+Park+Skye/Fairy+Glen+Uig+Skye/Glendale+Isle+of+Skye" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open Trotternish Loop in Maps<small>Storr → Kilt Rock → Quiraing → Faerie Glen</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">🗿</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Old Man of Storr — Lower path only</div>
+        <div class="stop-detail">Park at lower car park (£3 — fills by 09:30, go early). Walk to first big viewpoint and back — ~1 mile. SKIP the steep upper section. Same view, half the effort for Koda.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Old+Man+of+Storr+Car+Park+Isle+of+Skye" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🌊</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Kilt Rock &amp; Mealt Falls — 5 min stop</div>
+        <div class="stop-detail">Roadside viewpoint. Dramatic waterfall into the sea. Almost no walking required.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Kilt+Rock+viewpoint+Isle+of+Skye" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏔️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Quiraing — First viewpoint only (~0.6 miles)</div>
+        <div class="stop-detail">From car park to first viewpoint and back — 30 min. SKIP the full 4.5-mile circuit. Breathtaking even from close in.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Quiraing+car+park+Skye" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🧚</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Faerie Glen, Uig — 20 min wander</div>
+        <div class="stop-detail">Whimsical mini-landscape of grass cones and spirals. Mostly flat. Donation parking.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Fairy+Glen+Uig+Isle+of+Skye" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Storr car park fills by 09:30 — leave Glendale by 08:30.</div>
+    <div class="notes-item">Total walking ~3.5 miles all day — right at Koda's comfortable limit.</div>
+    <div class="notes-item">Quiraing single-track road is very tight — slow on blind bends.</div>
+    <div class="notes-item">E-bike option: Skye eBikes (Kilmuir) — one of you rides, the other walks dogs. No pet trailers.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 9 -->
+<div id="d9" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 9 · Sun 31 May ⭐⛳</div>
+    <div class="day-title">Stardust Boat + Sconser Golf + Talisker</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 60 miles local</span></div>
+      <div class="day-stat">⭐ <span>Highlight day</span></div>
+      <div class="day-stat">📅 <span>Pre-book all three</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Glendale+Isle+of+Skye/Portree+Harbour+Isle+of+Skye/Sconser+Golf+Club+Isle+of+Skye/Talisker+Distillery+Carbost+IV47" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open route in Maps<small>Glendale → Portree → Sconser → Talisker</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">⛵</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Stardust Boat Trips, Portree</div>
+        <div class="stop-detail">Wildlife boat — seals, sea eagles, dolphins. Dogs welcome. Book ahead: skyeboat-trips.co.uk</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Portree+Harbour+Isle+of+Skye" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.skyeboat-trips.co.uk" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">⛳</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Isle of Skye Golf Club, Sconser (9 holes)</div>
+        <div class="stop-detail">Only golf course with views of the Cuillins and Red Hills. ~£25 with hire. Call: 01478 650465.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Isle+of+Skye+Golf+Club+Sconser" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.isleofskyegolfclub.co.uk" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🥃</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Sligachan Hotel — Post-golf stop</div>
+        <div class="stop-detail">Iconic mountaineers' hotel between Sconser and Carbost. Dog-friendly bar. Great ales.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Sligachan+Hotel+Isle+of+Skye" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://hebrideanhotels.co.uk/sligachan/" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🥃</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Talisker Distillery, Carbost IV47</div>
+        <div class="stop-detail">The ONE distillery on this trip. Book tour ahead. Dogs in grounds. One of you tours, the other walks dogs outside.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Talisker+Distillery+Carbost+IV47" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.malts.com/en-gb/distilleries/talisker" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Book Stardust and Talisker tour in advance — both get full in season.</div>
+    <div class="notes-item">Sconser golf: call 01478 650465. Club hire available.</div>
+    <div class="notes-item">Old Inn, Carbost — dog-friendly dinner after Talisker. Right next to the distillery.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 10 -->
+<div id="d10" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 10 · Mon 1 Jun</div>
+    <div class="day-title">Glendale, Skye → Loch Ness (Brackla)</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 180 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 4 hrs with stops</span></div>
+      <div class="day-stat">🌲 <span>Plodda Falls detour</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Glendale+Isle+of+Skye/Kyle+of+Lochalsh+IV40/Invermoriston+IV63/Plodda+Falls+Glen+Affric+IV4/Brackla+Loch+Ness+IV2" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Glendale → Kyle → Invermoriston → Plodda Falls → Brackla</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">🏡</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Glendale — Checkout, depart 09:30</div>
+        <div class="stop-detail">Back to Kyle via Dunvegan and Portree, or direct via Broadford.</div>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot fuel">⛽</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Broadford or Kyle — Fuel stop</div>
+        <div class="stop-detail">Fill up before leaving Skye. Next reliable fuel is Invermoriston or Inverness.</div>
+        <a class="stop-link warn-link" href="https://www.google.com/maps/search/?api=1&query=petrol+station+Broadford+Isle+of+Skye" target="_blank">📍 Fuel</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🌊</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Plodda Falls, Glen Affric — Detour worth it</div>
+        <div class="stop-detail">One of Scotland's most spectacular waterfalls. 30 min walk (dogs on lead). Spectacular ancient Caledonian pine forest. Turn off at Tomich on the A831.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Plodda+Falls+Glen+Affric+IV4" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏡</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Brackla Cottage, Loch Ness — 2 nights</div>
+        <div class="stop-detail">South shore. Quiet. Beautiful. Plug in the BMW overnight.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Brackla+Loch+Ness+IV2" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">⭐ BALLOT ACTION TODAY: Enter Old Course St Andrews ballot by 14:00 at standrews.com/old-course-ballot. Results by 16:00. Need: name, home club, handicap.</div>
+    <div class="notes-item">Plodda Falls adds ~45 min to the journey but is exceptional.</div>
+    <div class="notes-item">Dog Falls in Glen Affric is another option if Plodda is too far off-route.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 11 -->
+<div id="d11" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 11 · Tue 2 Jun ⭐🚲</div>
+    <div class="day-title">Loch Ness Cruise + Urquhart Castle</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 30 miles local</span></div>
+      <div class="day-stat">🚢 <span>Book cruise ahead</span></div>
+      <div class="day-stat">⛳ <span>Ballot result today!</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Brackla+Loch+Ness/Fort+Augustus+PH32/Urquhart+Castle+Drumnadrochit+IV63/Drumnadrochit+IV63" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open route in Maps<small>Brackla → Fort Augustus → Urquhart → Drumnadrochit</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🌊</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Falls of Foyers — Morning walk</div>
+        <div class="stop-detail">5 min from the cottage. 1.5-mile round trip to a dramatic 60m waterfall. Koda-friendly path.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Falls+of+Foyers+Loch+Ness" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🚢</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Cruise Loch Ness — Fort Augustus (standard cruise)</div>
+        <div class="stop-detail">1-hour cruise on the loch. Dogs welcome. Book ahead: cruiselochness.com</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Cruise+Loch+Ness+Fort+Augustus+PH32" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://cruiselochness.com" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Urquhart Castle, Drumnadrochit</div>
+        <div class="stop-detail">Most-visited castle in Scotland. Book timed entry online. Dogs in grounds. Best Nessie-spotting point.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Urquhart+Castle+Drumnadrochit+IV63" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.historicenvironment.scot/visit-a-place/places/urquhart-castle/" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🚲</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Loch Ness Hub, Drumnadrochit — E-bikes (optional)</div>
+        <div class="stop-detail">E-bikes from ~£35/2 hrs. Glen Urquhart loop, sections of Loch Ness 360 trail. Great for one of you while the other walks dogs at Urquhart Bay Wood.</div>
+        <a class="stop-link" href="https://www.lochnesstravel.com/e-bikes-hire/" target="_blank">🌐 Website</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Loch Ness Experience (Drumnadrochit) — lochness.com — also worth a quick visit.</div>
+    <div class="notes-item">E-bike tip: Loch Ness Hub is right next to Urquhart Castle — combine them in one stop.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 12 -->
+<div id="d12" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 12 · Wed 3 Jun</div>
+    <div class="day-title">Loch Ness → Edinburgh (via Cairngorms)</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 171 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 3 hrs 30 min</span></div>
+      <div class="day-stat">🦁 <span>Zoo option (afternoon)</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Brackla+Loch+Ness/Loch+an+Eilein+Rothiemurchus+Cairngorms/House+of+Bruar+Blair+Atholl+PH18/Portobello+Edinburgh+EH15" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Brackla → Cairngorms → House of Bruar → Edinburgh</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🌲</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Loch an Eilein, Cairngorms — Morning walk</div>
+        <div class="stop-detail">3-mile flat loch circuit through ancient Caledonian pine forest. Ruins of island castle. Dogs off-lead. Beautiful and easy.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Loch+an+Eilein+Rothiemurchus+Cairngorms" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🛍️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">House of Bruar, Blair Atholl</div>
+        <div class="stop-detail">The Harrods of the Highlands. Dog-friendly outside. Good lunch options. Stock up on Highland provisions for Edinburgh.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=House+of+Bruar+Blair+Atholl+PH18" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.houseofbruar.com" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🦁</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Edinburgh Zoo (Lesley's option — afternoon)</div>
+        <div class="stop-detail">If you arrive at Portobello by 13:30 — leave Koda and Monty settled at the Airbnb, then head straight to the zoo (20 min). Open until 18:00, last entry 17:00. ~£26pp — book online. No dogs inside.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Edinburgh+Zoo+Corstorphine+EH12" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.edinburghzoo.org.uk" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏡</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Portobello Airbnb — 3 nights (EH15)</div>
+        <div class="stop-detail">Beach suburb of Edinburgh. 20 min from city centre on the bus. Plug in the BMW.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Portobello+Beach+Edinburgh+EH15" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Aim to leave Brackla by 09:30 to allow time for Cairngorms walk + House of Bruar + city check-in.</div>
+    <div class="notes-item">Edinburgh rush hour is brutal 16:00–18:30 — use the bypass (A720) to reach Portobello.</div>
+    <div class="notes-item">Lothian Bus 26 from Portobello to Princes Street — dogs travel free, 25 min.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 13 -->
+<div id="d13" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 13 · Thu 4 Jun ⛳</div>
+    <div class="day-title">St Andrews — Old Course Ballot + Town</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 100 miles return</span></div>
+      <div class="day-stat">⛳ <span>Ballot result from Tue!</span></div>
+      <div class="day-stat">🌊 <span>West Sands beach</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Portobello+Edinburgh/St+Andrews+Old+Course+KY16/West+Sands+Beach+St+Andrews" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open route in Maps<small>Portobello → St Andrews Old Course → West Sands</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">⛳</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Old Course, St Andrews — Ballot result</div>
+        <div class="stop-detail">If successful (ballot entered Tue 2 Jun, results by 16:00 Tue): ~£340 green fee + hire. Bring WHS handicap proof. Caddie optional but recommended (~£55 tip).</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=St+Andrews+Old+Course+KY16" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://standrews.com/old-course-ballot" target="_blank" style="margin-left:6px">🌐 Ballot</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏖️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">West Sands Beach — Lesley, Koda &amp; Monty</div>
+        <div class="stop-detail">The Chariots of Fire beach. 2 miles of flat sand. Dogs welcome year-round. Perfect while David plays.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=West+Sands+Beach+St+Andrews+KY16" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">📷</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Swilcan Bridge — Free photo stop</div>
+        <div class="stop-detail">Walk the public path along the 18th. Swilcan Bridge photo is free and unmissable — even if not playing.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Swilcan+Bridge+St+Andrews" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏛️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">St Andrews Cathedral &amp; St Rule's Tower</div>
+        <div class="stop-detail">Atmospheric ruins. Dogs welcome in grounds. Climb St Rule's Tower for best town view (~£6).</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=St+Andrews+Cathedral+KY16" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏌️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">R&amp;A World Golf Museum</div>
+        <div class="stop-detail">Formerly British Golf Museum. Opposite 1st tee. Excellent — essential for any golfer. Café with loch/course views. Dogs on outdoor terrace. ~£12pp.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=R+A+World+Golf+Museum+St+Andrews" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.worldgolfmuseum.com" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Ballot reminder: entered Tue 2 Jun. If won — budget ~£400 (green fee + hire). Bring handicap proof.</div>
+    <div class="notes-item">Consolation if unsuccessful: Crail Balcomie Links — walk-in 9 holes ~£60 with hire, 15 min south.</div>
+    <div class="notes-item">Forth Road Bridge is free — no tolls.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 14 -->
+<div id="d14" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 14 · Fri 5 Jun ⛳</div>
+    <div class="day-title">Musselburgh Golf + Edinburgh</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 15 miles local</span></div>
+      <div class="day-stat">⛳ <span>Call 0131 653 5122</span></div>
+      <div class="day-stat">🚌 <span>Bus everywhere in Edinburgh</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Portobello+Edinburgh/Musselburgh+Old+Links+EH21/Calton+Hill+Edinburgh/Royal+Mile+Edinburgh" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open route in Maps<small>Portobello → Musselburgh → Calton Hill → Royal Mile</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">⛳</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Musselburgh Old Links — 9 holes + hickory clubs</div>
+        <div class="stop-detail">World's oldest golf course (1672). ~£25 with hire. Ask about hickory clubs. Pre-book: 0131 653 5122.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Musselburgh+Old+Links+Golf+Course+EH21" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.musselburgholdlinks.co.uk" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏖️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Portobello Beach — Morning for Lesley, Koda &amp; Monty</div>
+        <div class="stop-detail">While David golfs. ~1 mile out and back at slow pace. Then coffee at Mary's Milk Bar.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Portobello+Beach+Edinburgh+EH15" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏔️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Calton Hill — Best city view (20 min)</div>
+        <div class="stop-detail">Easy uphill walk. Off-lead at the top. City's best 'postcard' viewpoint. Take the bus in to town first (Lothian 26).</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Calton+Hill+Edinburgh" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">👑</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Royal Mile — Walk DOWNHILL from Castle</div>
+        <div class="stop-detail">Start at the Castle Esplanade, walk downhill to Holyrood. ~1 mile gentle slope. Dogs on lead.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Royal+Mile+Edinburgh+Castle" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🌊</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Water of Leith — Stockbridge to Dean Village (one way)</div>
+        <div class="stop-detail">1.5 miles ONE WAY only — bus back from Dean Village. Wooded sunken river path. Feels like a secret forest.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Stockbridge+Edinburgh+Water+of+Leith" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Total walking today: ~3.5 miles. Add morning beach = ~4.5 miles. Watch Koda — if flagging, drop Water of Leith.</div>
+    <div class="notes-item">Lothian Bus app — tap contactless. Dogs free. Use buses between every stop.</div>
+    <div class="notes-item">Camera Obscura: dogs allowed inside (unusual!) — good rest stop for Koda mid-day. ~£21pp.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 15 -->
+<div id="d15" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 15 · Sat 6 Jun</div>
+    <div class="day-title">Edinburgh → York (via Northumberland coast)</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 210 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 5 hrs with stops</span></div>
+      <div class="day-stat">🏰 <span>Alnwick + Bamburgh</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Portobello+Edinburgh/Alnwick+Castle+NE66/Bamburgh+Castle+NE69/Holy+Island+Lindisfarne+Northumberland/Mercure+York+Fairfield+Manor+YO30" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>Edinburgh → Alnwick → Bamburgh → Lindisfarne → York</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">🏠</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Portobello — Checkout, depart by 09:00</div>
+        <div class="stop-detail">Fill up in Edinburgh before leaving. A1 south via Dunbar — free-flowing.</div>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Alnwick Castle, Northumberland</div>
+        <div class="stop-detail">Harry Potter's Hogwarts exterior. Dogs in grounds and walled garden. ~1 hr stop.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Alnwick+Castle+NE66+1NQ" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.alnwickcastle.com" target="_blank" style="margin-left:6px">🌐 Website</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Bamburgh Castle &amp; Beach</div>
+        <div class="stop-detail">Most dramatic castle in England on the Northumberland coast. Dogs on the beach. Incredible backdrop. Riley's Fish Shack on the beach for lunch.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Bamburgh+Castle+NE69" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot warn">🌊</div></div>
+      <div class="stop-right">
+        <div class="stop-name">⚠️ Holy Island (Lindisfarne) — TIDE-DEPENDENT</div>
+        <div class="stop-detail">Causeway closes for ~5 hrs each tide. CHECK before going: holyislandcrossingtimes.northumberland.gov.uk. Priory ruins + beach — dogs in grounds. Don't get stranded!</div>
+        <a class="stop-link warn-link" href="https://holyislandcrossingtimes.northumberland.gov.uk" target="_blank">🌐 Tide times</a>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Holy+Island+Lindisfarne+Northumberland" target="_blank" style="margin-left:6px">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏨</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Mercure York Fairfield Manor — Overnight</div>
+        <div class="stop-detail">Skelton, ~10 min north of York centre. Arrive by 18:00 if possible.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Mercure+York+Fairfield+Manor+Shipton+Road+YO30" target="_blank">📍 Map</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">CHECK HOLY ISLAND TIDES before leaving Edinburgh: holyislandcrossingtimes.northumberland.gov.uk</div>
+    <div class="notes-item">Riley's Fish Shack, Bamburgh — outdoor, dog-friendly, exceptional. Worth a stop.</div>
+    <div class="notes-item">Alnwick or Bamburgh — pick one if time is tight. Bamburgh beach is more special.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ DAY 16 -->
+<div id="d16" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Day 16 · Sun 7 Jun</div>
+    <div class="day-title">York → Home (Pulloxhill)</div>
+    <div class="day-stats">
+      <div class="day-stat">🚗 <span>≈ 180 miles</span></div>
+      <div class="day-stat">⏱ <span>≈ 3 hrs 30 min</span></div>
+      <div class="day-stat">☕ <span>Bettys York!</span></div>
+    </div>
+  </div>
+  <a class="map-btn" href="https://www.google.com/maps/dir/Mercure+York+Fairfield+Manor+YO30/Bettys+Cafe+Tea+Rooms+York+YO1/York+City+Walls/Tebay+Services+M6+J38+southbound/Pulloxhill+Bedfordshire+MK45+5HD" target="_blank">
+    <span class="map-icon">🗺</span>
+    <div class="map-btn-text">Open full route in Maps<small>York → Bettys → Tebay southbound → Pulloxhill</small></div>
+  </a>
+  <div class="stops-card">
+    <div class="stops-card-title">Stops &amp; places of interest</div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot start">☕</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Bettys Café Tea Rooms, York — Breakfast/afternoon tea</div>
+        <div class="stop-detail">York's most famous institution — 100 years old in 2026. Book the Belmont Room in advance for the full afternoon tea. Dogs NOT inside — leave Koda and Monty at the hotel and both go. Queue early or pre-book.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Bettys+Cafe+Tea+Rooms+York+YO1" target="_blank">📍 Map</a>
+        <a class="stop-link green-link" href="https://www.bettys.co.uk" target="_blank" style="margin-left:6px">🌐 Book</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🏰</div></div>
+      <div class="stop-right">
+        <div class="stop-name">York City Walls — Bootham Bar to Monk Bar</div>
+        <div class="stop-detail">Best 1-mile section. Easy steps, great views over the city. Dogs welcome. Free.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Bootham+Bar+York+City+Walls" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">🛍️</div></div>
+      <div class="stop-right">
+        <div class="stop-name">The Shambles &amp; Museum Gardens</div>
+        <div class="stop-detail">Medieval streets + beautiful abbey gardens. Dogs welcome in gardens on lead.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=The+Shambles+York" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot poi">☕</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Tebay Services — Southbound (M6 J38) — Lunch</div>
+        <div class="stop-detail">The bookend to Day 1. About halfway home. ~14:00.</div>
+        <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=Tebay+Services+southbound+M6+J38+Cumbria" target="_blank">📍 Map</a>
+      </div>
+    </div>
+    <div class="stop-item">
+      <div class="stop-left"><div class="stop-dot end">🏠</div></div>
+      <div class="stop-right">
+        <div class="stop-name">Pulloxhill, MK45 5HD — Home 🎉</div>
+        <div class="stop-detail">Target: home by 17:00. Work Monday. Trip of a lifetime done.</div>
+        <a class="stop-link green-link" href="https://www.google.com/maps/search/?api=1&query=Pulloxhill+Bedfordshire+MK45+5HD" target="_blank">📍 Home</a>
+      </div>
+    </div>
+  </div>
+  <div class="notes-card">
+    <div class="notes-title">📌 Notes</div>
+    <div class="notes-item">Leave York by 12:00 — M1 Sunday afternoon traffic gets bad from 15:00.</div>
+    <div class="notes-item">Bettys: book the Belmont Room table in advance online. Well worth it after 16 days.</div>
+    <div class="notes-item">Welcome home! Trip of a lifetime. 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ CONTACTS -->
+<div id="contacts" class="day-section">
+  <div class="day-header">
+    <div class="day-number">Emergency contacts</div>
+    <div class="day-title">SOS — Vets, Hospitals &amp; Services</div>
+    <div class="day-stats">
+      <div class="day-stat">🚨 <span>Save these numbers</span></div>
+    </div>
+  </div>
+  <p class="section-label">Emergency services</p>
+  <div class="contacts-card">
+    <a class="contact-item" href="tel:999">
+      <div class="contact-icon">🚨</div>
+      <div class="contact-info">
+        <div class="contact-name">Emergency (Police / Ambulance / Mountain Rescue)</div>
+        <div class="contact-num">999</div>
+      </div>
+    </a>
+    <a class="contact-item" href="tel:111">
+      <div class="contact-icon">🏥</div>
+      <div class="contact-info">
+        <div class="contact-name">NHS 111 — Non-emergency medical advice</div>
+        <div class="contact-num">111</div>
+      </div>
+    </a>
+  </div>
+  <p class="section-label">Vets near the route</p>
+  <div class="contacts-card">
+    <a class="contact-item" href="tel:01397702194">
+      <div class="contact-icon">🐾</div>
+      <div class="contact-info">
+        <div class="contact-name">Strone Vets — Fort William</div>
+        <div class="contact-num">01397 702194</div>
+      </div>
+    </a>
+    <a class="contact-item" href="tel:01478612639">
+      <div class="contact-icon">🐾</div>
+      <div class="contact-info">
+        <div class="contact-name">Skye Vets — Portree</div>
+        <div class="contact-num">01478 612639</div>
+      </div>
+    </a>
+    <a class="contact-item" href="tel:01463230000">
+      <div class="contact-icon">🐾</div>
+      <div class="contact-info">
+        <div class="contact-name">Conduit Vets — Inverness</div>
+        <div class="contact-num">01463 230000</div>
+      </div>
+    </a>
+  </div>
+  <p class="section-label">Hospitals near the route</p>
+  <div class="contacts-card">
+    <a class="contact-item" href="https://www.google.com/maps/search/?api=1&query=Belford+Hospital+Fort+William" target="_blank">
+      <div class="contact-icon">🏥</div>
+      <div class="contact-info">
+        <div class="contact-name">Belford Hospital — Fort William</div>
+        <div class="contact-num">Tap for map →</div>
+      </div>
+    </a>
+    <a class="contact-item" href="https://www.google.com/maps/search/?api=1&query=Western+Isles+Hospital+Stornoway" target="_blank">
+      <div class="contact-icon">🏥</div>
+      <div class="contact-info">
+        <div class="contact-name">Western Isles Hospital — Skye emergencies</div>
+        <div class="contact-num">Tap for map →</div>
+      </div>
+    </a>
+    <a class="contact-item" href="https://www.google.com/maps/search/?api=1&query=Raigmore+Hospital+Inverness" target="_blank">
+      <div class="contact-icon">🏥</div>
+      <div class="contact-info">
+        <div class="contact-name">Raigmore Hospital — Inverness (main Highland A&E)</div>
+        <div class="contact-num">Tap for map →</div>
+      </div>
+    </a>
+  </div>
+  <p class="section-label">Key bookings to check</p>
+  <div class="contacts-card">
+    <a class="contact-item" href="https://westcoastrailways.co.uk/jacobite/steam-train-trip" target="_blank">
+      <div class="contact-icon">🚂</div>
+      <div class="contact-info">
+        <div class="contact-name">Jacobite Steam Train — Check booking status</div>
+        <div class="contact-num">westcoastrailways.co.uk</div>
+      </div>
+    </a>
+    <a class="contact-item" href="https://standrews.com/old-course-ballot" target="_blank">
+      <div class="contact-icon">⛳</div>
+      <div class="contact-info">
+        <div class="contact-name">Old Course Ballot — Enter Tue 2 Jun, closes 14:00</div>
+        <div class="contact-num">standrews.com/old-course-ballot</div>
+      </div>
+    </a>
+    <a class="contact-item" href="https://holyislandcrossingtimes.northumberland.gov.uk" target="_blank">
+      <div class="contact-icon">🌊</div>
+      <div class="contact-info">
+        <div class="contact-name">Holy Island Tide Times — Check before Day 15</div>
+        <div class="contact-num">holyislandcrossingtimes.northumberland.gov.uk</div>
+      </div>
+    </a>
+    <a class="contact-item" href="https://www.nevisrange.co.uk/mountain-report/" target="_blank">
+      <div class="contact-icon">🚠</div>
+      <div class="contact-info">
+        <div class="contact-name">Nevis Range Mountain Report — Check night before Day 6</div>
+        <div class="contact-num">nevisrange.co.uk/mountain-report</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+</div><!-- end .content -->
+
+<script>
+function showDay(id) {
+  // Hide all
+  document.querySelectorAll('.day-section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+  // Show target
+  document.getElementById(id).classList.add('active');
+
+  // Activate nav button
+  const buttons = document.querySelectorAll('.nav-btn');
+  buttons.forEach(btn => {
+    if (btn.getAttribute('onclick') === `showDay('${id}')`) {
+      btn.classList.add('active');
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  });
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
