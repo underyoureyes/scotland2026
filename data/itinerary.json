@@ -22,13 +22,13 @@
   "stays": [
     {
       "id": "gretna",
-      "name": "Smiths at Gretna Green",
-      "location": "Springfield, Gretna Green, DG16 5EA",
+      "name": "The Hazeldene Hotel",
+      "location": "Annan Road, Gretna, DG16 5DQ",
       "nights": 1,
       "checkin": "2026-05-23",
       "checkout": "2026-05-24",
       "type": "hotel",
-      "url": "https://www.expedia.co.uk/trips/egti-0HX-48G-J90F/details/ZTU0NDNkMDktNjY2Zi02YWQ4LTk4NjQtMjQ1ZTcxMThlYjFiOzdlYzI0YzZkLTM3NjItNDkyOS1hMDUxLTQzZTY5NjE2Njk4MV8wO2VnOnByb3BlcnR5OnYyOjY2OWM4ZDU5NDkxZTRkNjUyODk2MDA0MTMxYjA4NTFi",
+      "url": "https://www.expedia.co.uk/Gretna-Hotels-The-Hazeldene-Hotel.h128883093.Hotel-Information?expediaPropertyId=128883093&chkin=2026-05-23&chkout=2026-05-24&rm1=a2&regionId=182776&destType=MARKET&sort=RECOMMENDED",
       "cancellation_deadline": "2026-05-22",
       "cost_gbp": 75,
       "confirm_socket_with_host": false
@@ -126,7 +126,7 @@
         "Leicester Forest East Services M1 J21",
         "Tebay Services Westmorland M6 J38 northbound Cumbria",
         "Gretna Green Famous Blacksmiths Shop DG16",
-        "Smiths at Gretna Green Hotel DG16 5EA"
+        "The Hazeldene Hotel Gretna DG16 5DQ"
       ],
       "stops": [
         { "name": "Leicester Forest East Services", "type": "dog_walk", "detail": "~100 miles from Pulloxhill. Grass area for dogs. Coffee stop. Aim ~10:45.", "maps_query": "Leicester Forest East Services M1 LE3 3GB" },
@@ -135,13 +135,13 @@
       ],
       "eating": [
         { "name": "Tebay Services", "type": "lunch", "dog_friendly": true },
-        { "name": "Smiths at Gretna Green", "type": "dinner", "dog_friendly": true, "url": "https://www.smithsgretnagreen.com" }
+        { "name": "The Hazeldene Hotel", "type": "dinner", "dog_friendly": true }
       ],
       "notes": [
         "Fill tank before leaving Pulloxhill",
         "Top up at Tebay — do not push past it on less than half a tank",
         "Leave by 09:00 — M6 busy Saturday afternoons",
-        "Plug in BMW on arrival at Gretna"
+        "Plug in BMW on arrival at The Hazeldene Hotel"
       ]
     },
     {

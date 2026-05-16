@@ -988,8 +988,8 @@ def build_day_section(day, stays_map):
 {stops_card}
 {notes_card}
 {ballot_card}
-</div>
 {info_panel}
+</div>
 """
 
 
