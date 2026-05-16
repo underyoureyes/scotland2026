@@ -256,6 +256,7 @@
         { "name": "Glencoe Village", "type": "sightseeing_dogs", "detail": "Short walk in the valley. NTS Visitor Centre nearby.", "maps_query": "Glencoe Village PH49" }
       ],
       "eating": [
+        { "name": "Real Food Cafe, Tyndrum", "type": "lunch", "dog_friendly": true, "detail": "Famous for pies, fish & chips and burgers. Dog-friendly outside seating. On the A82 — hard to miss.", "url": "https://therealfoodcafe.com", "maps_query": "Real Food Cafe Tyndrum FK20 8RY" },
         { "name": "Clachaig Inn", "type": "dinner", "dog_friendly": true, "url": "https://www.clachaig.com" }
       ],
       "notes": [
@@ -287,6 +288,7 @@
       ],
       "eating": [
         { "name": "Snowgoose Cafe, Nevis Range top", "type": "breakfast", "dog_friendly": true, "url": "https://www.nevisrange.co.uk" },
+        { "name": "Jaffy's Fish Bar, Mallaig", "type": "lunch", "dog_friendly": true, "detail": "Arrive Mallaig ~12:30-13:00 on the train. Harbour-side fish & chips — eat on the waterfront with the dogs while waiting for the return. Cornerstone Café is a good alternative nearby.", "maps_query": "Jaffy's Fish Bar Mallaig PH41" },
         { "name": "Crannog at Garrison West, Fort William", "type": "dinner", "dog_friendly": false, "detail": "Best seafood in Fort William. Cameron Square. Leave dogs at Ballachulish first. Confirm site is still operating before trip.", "maps_query": "Crannog Restaurant Fort William PH33" },
         { "name": "Clachaig Inn (dog-friendly alternative)", "type": "dinner", "dog_friendly": true, "url": "https://www.clachaig.com" }
       ],
@@ -391,6 +393,7 @@
         { "name": "Talisker Distillery, Carbost", "type": "distillery", "detail": "THE distillery on this trip. Tag-team — one tours, other walks dogs along Carbost Bay. Book ahead.", "cost": "~25pp", "url": "https://www.malts.com/en-gb/distilleries/talisker", "maps_query": "Talisker Distillery Carbost IV47 8SR", "book_ahead": true, "dogs_inside": false }
       ],
       "eating": [
+        { "name": "Sligachan Hotel", "type": "lunch", "dog_friendly": true, "detail": "Natural stop between Sconser golf and Talisker. Famous 19th-century coaching inn — huge dog-friendly beer garden with Cuillin views. Pub food all day.", "url": "https://hebrideanhotels.co.uk/sligachan/", "maps_query": "Sligachan Hotel Isle of Skye IV47" },
         { "name": "Three Chimneys, Colbost", "type": "dinner_fine", "dog_friendly": false, "detail": "Iconic Skye fine-dining, 5 min from Glendale. Book 4+ weeks ahead.", "url": "https://www.threechimneys.co.uk" },
         { "name": "Old Inn, Carbost", "type": "dinner_pub", "dog_friendly": true, "url": "https://theoldinnskye.co.uk" },
         { "name": "Scorrybreac, Portree", "type": "dinner_fine", "dog_friendly": false, "url": "https://scorrybreac.com" }
