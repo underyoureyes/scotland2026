@@ -177,6 +177,13 @@
     color: #bfdbfe;
   }
   .day-stat span { font-weight: 600; color: #fff; }
+  .step-badge {
+    padding: 2px 8px; border-radius: 99px; font-size: 11px;
+    font-weight: 700; color: #fff; white-space: nowrap;
+  }
+  .step-badge.green { background: rgba(22,163,74,0.85); }
+  .step-badge.amber { background: rgba(202,138,4,0.90); }
+  .step-badge.red   { background: rgba(220,38,38,0.90); }
 
   /* ── Big map button ───────────────────────────────────────── */
   .map-btn {
@@ -552,7 +559,7 @@
     <div class="hero-chip">🚗 BMW 530e Estate</div>
     <div class="hero-chip">16 days</div>
     <div class="hero-chip">🐾 2 dogs</div>
-    <div class="hero-chip" style="opacity:0.6;font-size:11px">Built 17 May 2026 09:31</div>
+    <div class="hero-chip" style="opacity:0.6;font-size:11px">Built 17 May 2026 09:37</div>
   </div>
 </div>
 <!-- ── Nav ──────────────────────────────────────────────────────────────────── -->
@@ -706,7 +713,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 280 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 5 hr</span></div>
-      <div class="day-stat">🐾 <span>1.0 miles walking</span></div>
+      <div class="day-stat">🐾 <span>1.0 miles</span> <span class="step-badge green">~2,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Pulloxhill+Bedfordshire+MK45+5HD/Leicester+Forest+East+Services+M1+J21/Tebay+Services+Westmorland+M6+J38+northbound+Cumbria/Gretna+Green+Famous+Blacksmiths+Shop+DG16/Gretna+DG16" target="_blank">
@@ -774,7 +781,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 220 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 4 hr</span></div>
-      <div class="day-stat">🐾 <span>2.0 miles walking</span></div>
+      <div class="day-stat">🐾 <span>2.0 miles</span> <span class="step-badge green">~4,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Gretna+DG16/Chatelherault+Country+Park+Hamilton+ML3+7UE/Loch+Lomond+Shores+Balloch+G83+8QL/Co-op+Drymen+Stirlingshire/Rowardennan+Loch+Lomond+G63+0AR" target="_blank">
@@ -841,6 +848,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 30 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 1 hr</span></div>
+      <div class="day-stat">🐾 <span>2.5 miles</span> <span class="step-badge green">~5,000 steps</span></div>
       <div class="day-stat">🚲 <span>E-bike option</span></div>
     </div>
   </div>
@@ -907,7 +915,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 50 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 1.5 hrs</span></div>
-      <div class="day-stat">🐾 <span>3.0 miles walking</span></div>
+      <div class="day-stat">🐾 <span>3.0 miles</span> <span class="step-badge green">~6,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Rowardennan+Loch+Lomond+G63+0AR/Ross+Wood+Rowardennan+Loch+Lomond/Doune+Castle+Doune+FK16+6EA/Rowardennan+Loch+Lomond+G63+0AR" target="_blank">
@@ -965,6 +973,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 93 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 2.5 hrs</span></div>
+      <div class="day-stat">🐾 <span>2.0 miles</span> <span class="step-badge green">~4,000 steps</span></div>
       <div class="day-stat">⛳ <span>9-hole golf</span></div>
     </div>
   </div>
@@ -1034,6 +1043,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 45 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 1.5 hrs</span></div>
+      <div class="day-stat">🐾 <span>2.0 miles</span> <span class="step-badge green">~4,000 steps</span></div>
       <div class="day-stat">🚂 <span>Train day</span></div>
     </div>
   </div>
@@ -1111,7 +1121,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 142 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 3 hr</span></div>
-      <div class="day-stat">🐾 <span>1.5 miles walking</span></div>
+      <div class="day-stat">🐾 <span>1.5 miles</span> <span class="step-badge green">~3,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Ballachulish+PH49+4JY/Eilean+Donan+Castle+Dornie+IV40+8DX/Kyle+of+Lochalsh+IV40+8AA/Skye+Bridge+Kyle+of+Lochalsh/Portree+Isle+of+Skye+IV51/Dunvegan+Castle+Isle+of+Skye+IV55/Glendale+Isle+of+Skye+IV55+8WS" target="_blank">
@@ -1187,6 +1197,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 75 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 3.5 hrs</span></div>
+      <div class="day-stat">🐾 <span>2.2 miles</span> <span class="step-badge green">~4,400 steps</span></div>
       <div class="day-stat">🚲 <span>E-bike option</span></div>
     </div>
   </div>
@@ -1263,6 +1274,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 60 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 2 hr</span></div>
+      <div class="day-stat">🐾 <span>2.0 miles</span> <span class="step-badge green">~4,000 steps</span></div>
       <div class="day-stat">⛳ <span>9-hole golf</span></div>
     </div>
   </div>
@@ -1339,7 +1351,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 180 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 4 hr</span></div>
-      <div class="day-stat">🐾 <span>2.0 miles walking</span></div>
+      <div class="day-stat">🐾 <span>2.0 miles</span> <span class="step-badge green">~4,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Glendale+Isle+of+Skye+IV55+8WS/Broadford+Isle+of+Skye+IV49/Kyle+of+Lochalsh+IV40+8AA/Plodda+Falls+Tomich+Cannich+IV4+7LX/Foyers+Loch+Ness+IV2+6XU" target="_blank">
@@ -1407,6 +1419,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 30 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 1.5 hrs</span></div>
+      <div class="day-stat">🐾 <span>3.0 miles</span> <span class="step-badge green">~6,000 steps</span></div>
       <div class="day-stat">🚲 <span>E-bike option</span></div>
     </div>
   </div>
@@ -1489,7 +1502,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 171 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 3.5 hrs</span></div>
-      <div class="day-stat">🐾 <span>3.5 miles walking</span></div>
+      <div class="day-stat">🐾 <span>3.5 miles</span> <span class="step-badge green">~7,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Foyers+Loch+Ness+IV2+6XU/Loch+an+Eilein+Car+Park+Rothiemurchus+Cairngorms/House+of+Bruar+Blair+Atholl+PH18+5TW/Edinburgh+Zoo+Corstorphine+EH12/Portobello+Edinburgh+EH15" target="_blank">
@@ -1558,6 +1571,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 100 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 3 hr</span></div>
+      <div class="day-stat">🐾 <span>3.0 miles</span> <span class="step-badge green">~6,000 steps</span></div>
       <div class="day-stat">⛳ <span>9-hole golf</span></div>
     </div>
   </div>
@@ -1635,6 +1649,7 @@
     <div class="day-title">Musselburgh Golf + Edinburgh</div>
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 15 miles</span></div>
+      <div class="day-stat">🐾 <span>5.0 miles</span> <span class="step-badge amber">~10,000 steps</span></div>
       <div class="day-stat">⛳ <span>9-hole golf</span></div>
     </div>
   </div>
@@ -1720,7 +1735,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 210 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 5 hr</span></div>
-      <div class="day-stat">🐾 <span>2.5 miles walking</span></div>
+      <div class="day-stat">🐾 <span>2.5 miles</span> <span class="step-badge green">~5,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Portobello+Edinburgh+EH15/Alnwick+Castle+NE66+1NQ/Bamburgh+Castle+NE69+7DF/Holy+Island+Lindisfarne+TD15/Scotch+Corner+Services+DL10+6NR/Mercure+York+Fairfield+Manor+Shipton+Road+York+YO30" target="_blank">
@@ -1795,7 +1810,7 @@
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 180 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 3.5 hrs</span></div>
-      <div class="day-stat">🐾 <span>2.0 miles walking</span></div>
+      <div class="day-stat">🐾 <span>2.0 miles</span> <span class="step-badge green">~4,000 steps</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Mercure+York+Fairfield+Manor+YO30/Bettys+Cafe+Tea+Rooms+York+YO1+2QN/York+City+Walls+Bootham+Bar/The+Shambles+York/Museum+Gardens+York/Tebay+Services+southbound+M6+J38+Cumbria/Pulloxhill+Bedfordshire+MK45+5HD" target="_blank">
