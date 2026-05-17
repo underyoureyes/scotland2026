@@ -201,6 +201,26 @@
   .map-btn-text { line-height: 1.2; }
   .map-btn-text small { display: block; font-size: 12px; font-weight: 400; opacity: 0.85; margin-top: 1px; }
 
+  /* ── Weather button ───────────────────────────────────────── */
+  .weather-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--sky-light);
+    color: var(--sky);
+    border: 1px solid rgba(37,99,168,0.2);
+    border-radius: var(--radius);
+    padding: 11px 16px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    transition: background 0.15s;
+    -webkit-touch-callout: none;
+  }
+  .weather-btn:active { background: #bfdbfe; }
+
   /* ── Stops list ───────────────────────────────────────────── */
   .stops-card {
     background: var(--white);
@@ -532,13 +552,13 @@
     <div class="hero-chip">🚗 BMW 530e Estate</div>
     <div class="hero-chip">16 days</div>
     <div class="hero-chip">🐾 2 dogs</div>
-    <div class="hero-chip" style="opacity:0.6;font-size:11px">Built 17 May 2026 00:24</div>
+    <div class="hero-chip" style="opacity:0.6;font-size:11px">Built 17 May 2026 08:47</div>
   </div>
 </div>
 <!-- ── Nav ──────────────────────────────────────────────────────────────────── -->
 <div class="nav-wrap">
   <div class="nav-scroll">
-    <button class="nav-btn active" onclick="showDay('overview')">Overview</button><button class="nav-btn" onclick="showDay('d1')">Day 1</button><button class="nav-btn" onclick="showDay('d2')">Day 2</button><button class="nav-btn" onclick="showDay('d3')">Day 3 🚲</button><button class="nav-btn" onclick="showDay('d4')">Day 4</button><button class="nav-btn" onclick="showDay('d5')">Day 5 ⛳</button><button class="nav-btn" onclick="showDay('d6')">Day 6 ⭐🚂</button><button class="nav-btn" onclick="showDay('d7')">Day 7</button><button class="nav-btn" onclick="showDay('d8')">Day 8 🚲</button><button class="nav-btn" onclick="showDay('d9')">Day 9 ⭐⛳</button><button class="nav-btn" onclick="showDay('d10')">Day 10</button><button class="nav-btn" onclick="showDay('d11')">Day 11 ⭐🚲</button><button class="nav-btn" onclick="showDay('d12')">Day 12</button><button class="nav-btn" onclick="showDay('d13')">Day 13 ⛳⭐</button><button class="nav-btn" onclick="showDay('d14')">Day 14 ⛳</button><button class="nav-btn" onclick="showDay('d15')">Day 15</button><button class="nav-btn" onclick="showDay('d16')">Day 16</button><button class="nav-btn" onclick="showDay('contacts')">📞 SOS</button>
+    <button class="nav-btn active" onclick="showDay('overview')">Overview</button><button class="nav-btn" onclick="showDay('d1')">Day 1</button><button class="nav-btn" onclick="showDay('d2')">Day 2</button><button class="nav-btn" onclick="showDay('d3')">Day 3 🚲</button><button class="nav-btn" onclick="showDay('d4')">Day 4</button><button class="nav-btn" onclick="showDay('d5')">Day 5 ⛳</button><button class="nav-btn" onclick="showDay('d6')">Day 6 ⭐🚂</button><button class="nav-btn" onclick="showDay('d7')">Day 7</button><button class="nav-btn" onclick="showDay('d8')">Day 8 🚲</button><button class="nav-btn" onclick="showDay('d9')">Day 9 ⭐⛳</button><button class="nav-btn" onclick="showDay('d10')">Day 10</button><button class="nav-btn" onclick="showDay('d11')">Day 11 ⭐🚲</button><button class="nav-btn" onclick="showDay('d12')">Day 12</button><button class="nav-btn" onclick="showDay('d13')">Day 13 ⭐⛳</button><button class="nav-btn" onclick="showDay('d14')">Day 14 ⛳</button><button class="nav-btn" onclick="showDay('d15')">Day 15</button><button class="nav-btn" onclick="showDay('d16')">Day 16</button><button class="nav-btn" onclick="showDay('contacts')">📞 SOS</button>
   </div>
 </div>
 
@@ -646,8 +666,8 @@
     <div class="ov-row highlight" onclick="showDay('d13')">
       <div class="ov-day-badge"><div class="dnum">13</div></div>
       <div class="ov-info">
-        <div class="ov-date">Thu 4 Jun ⛳⭐</div>
-        <div class="ov-title">St Andrews — Old Course Ballot + Town</div>
+        <div class="ov-date">Thu 4 Jun ⭐⛳</div>
+        <div class="ov-title">St Andrews — Town, Coastal Walk &amp; Crail Golf</div>
         <div class="ov-miles">≈ 100 miles · West Sands Beach + Swilcan Bridge photo</div>
       </div><div class="ov-arrow">›</div>
     </div>
@@ -693,6 +713,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Pulloxhill Bedfordshire MK45 5HD → Leicester Forest East Services M1 J21 → Tebay Services Westmorland M6 J38 northbound Cumbria → Gretna DG16</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Gretna+DG16" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -760,6 +781,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Gretna DG16 → Chatelherault Country Park Hamilton ML3 7UE → Loch Lomond Shores Balloch G83 8QL → Rowardennan Loch Lomond G63 0AR</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Loch+Lomond+G63" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -826,6 +848,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Rowardennan Loch Lomond G63 0AR → Balmaha Boatyard Loch Lomond → St Mocha Coffee Shop Balmaha → Rowardennan Loch Lomond G63 0AR</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Loch+Lomond+G63" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -891,6 +914,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Rowardennan Loch Lomond G63 0AR → Ross Wood Rowardennan Loch Lomond → Doune Castle Doune FK16 6EA → Rowardennan Loch Lomond G63 0AR</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Loch+Lomond+G63" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -948,6 +972,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Rowardennan Loch Lomond G63 0AR → Real Food Cafe Tyndrum FK20 8RY → Woodlands Glencoe PH49 4AA → Ballachulish PH49 4JY</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Glencoe+PH49" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1016,6 +1041,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Ballachulish PH49 4JY → Nevis Range Torlundy Fort William PH33 6SW → Fort William Railway Station Fort William PH33 6TQ → Ballachulish PH49 4JY</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Fort+William+PH33" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1092,6 +1118,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Ballachulish PH49 4JY → Eilean Donan Castle Dornie IV40 8DX → Kyle of Lochalsh IV40 8AA → Glendale Isle of Skye IV55 8WS</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Isle+of+Skye+IV55" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1167,6 +1194,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Glendale Isle of Skye IV55 8WS → Old Man of Storr Car Park Isle of Skye → Kilt Rock Viewpoint Isle of Skye → Glendale Isle of Skye IV55 8WS</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Portree+IV51" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1242,6 +1270,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Glendale Isle of Skye IV55 8WS → Portree Harbour Isle of Skye IV51 → Isle of Skye Golf Club Sconser IV48 → Glendale Isle of Skye IV55 8WS</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Isle+of+Skye+IV47" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1316,6 +1345,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Glendale Isle of Skye IV55 8WS → Broadford Isle of Skye IV49 → Kyle of Lochalsh IV40 8AA → Foyers Loch Ness IV2 6XU</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Loch+Ness+IV2" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1358,11 +1388,7 @@
     <div class="notes-item">Brackla is the quiet south shore — away from the tourist crowds</div>
     <div class="notes-item">Plug in BMW overnight at Brackla</div>
   </div>
-  <div class="ballot-card">
-    <div class="ballot-title">⛳ ENTER OLD COURSE BALLOT TODAY</div>
-    <div class="ballot-detail">Enter by 14:00. Results by 16:00. Need: name, home club, handicap index.</div>
-    <a class="stop-link green-link" href="https://standrews.com/old-course-ballot" target="_blank">🌐 Enter ballot</a>
-  </div>
+
   <div class="info-toggle" data-panel="p10" onclick="toggleInfo('p10')">
     <span>🗒 Activities, eating &amp; tips</span>
     <span class="toggle-icon">⌄</span>
@@ -1387,6 +1413,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Foyers Loch Ness IV2 6XU → Falls of Foyers Loch Ness → Fort Augustus PH32 4DD → Foyers Loch Ness IV2 6XU</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Drumnadrochit+IV63" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1468,6 +1495,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Foyers Loch Ness IV2 6XU → Loch an Eilein Car Park Rothiemurchus Cairngorms → House of Bruar Blair Atholl PH18 5TW → Portobello Edinburgh EH15</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Aviemore+PH22" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1524,25 +1552,26 @@
 <!-- ════════════════════════════════════════════════════════════ DAY 13 -->
 <div id="d13" class="day-section">
   <div class="day-header">
-    <div class="day-number">Day 13 · Thu 4 Jun ⛳⭐</div>
-    <div class="day-title">St Andrews — Old Course Ballot + Town</div>
+    <div class="day-number">Day 13 · Thu 4 Jun ⭐⛳</div>
+    <div class="day-title">St Andrews — Town, Coastal Walk &amp; Crail Golf</div>
     <div class="day-stats">
       <div class="day-stat">🚗 <span>≈ 100 miles</span></div>
       <div class="day-stat">⏱ <span>≈ 3 hr</span></div>
-      <div class="day-stat">⛳ <span>18-hole golf</span></div>
+      <div class="day-stat">⛳ <span>9-hole golf</span></div>
     </div>
   </div>
   <a class="map-btn" href="https://www.google.com/maps/dir/Portobello+Edinburgh+EH15/St+Andrews+Old+Course+KY16+9SF/West+Sands+Beach+St+Andrews+KY16/Swilcan+Bridge+St+Andrews/St+Andrews+Cathedral+KY16/R+A+World+Golf+Museum+St+Andrews/Portobello+Edinburgh+EH15" target="_blank">
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Portobello Edinburgh EH15 → St Andrews Old Course KY16 9SF → West Sands Beach St Andrews KY16 → Portobello Edinburgh EH15</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=St+Andrews+KY16" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
       <div class="stop-left"><div class="stop-dot start">🐾</div></div>
       <div class="stop-right">
         <div class="stop-name">West Sands Beach — Chariots of Fire beach</div>
-        <div class="stop-detail">2 miles of flat sand. Dogs welcome year-round. While David plays.</div>
+        <div class="stop-detail">2 miles of flat sand. Dogs welcome year-round. The Chariots of Fire beach.</div>
         <a class="stop-link" href="https://www.google.com/maps/search/?api=1&query=West+Sands+Beach+St+Andrews+KY16" target="_blank">📍 Map</a>
       </div>
     </div>
@@ -1581,10 +1610,10 @@
   </div>
   <div class="notes-card">
     <div class="notes-title">📌 Notes</div>
-    <div class="notes-item">~30% of tee times go via ballot in May/June — better odds than August</div>
-    <div class="notes-item">Handicap certificate required on the day — bring WHS index proof</div>
+    <div class="notes-item">Old Course requires WHS handicap (max 24M/36W) — not applicable for this trip</div>
+    <div class="notes-item">Crail Balcomie Links: 10 miles east of St Andrews, cliff-top links, walk-in, no handicap needed</div>
+    <div class="notes-item">Alternative: Eden or Strathtyrum courses AT St Andrews — no handicap, call 01334 466666</div>
     <div class="notes-item">Forth Road Bridge is free — no tolls</div>
-    <div class="notes-item">If unsuccessful: Crail Balcomie Links — walk-in 9-hole ~60 with hire</div>
   </div>
 
   <div class="info-toggle" data-panel="p13" onclick="toggleInfo('p13')">
@@ -1592,8 +1621,8 @@
     <span class="toggle-icon">⌄</span>
   </div>
   <div id="p13" class="info-panel">
-<div class="info-section"><div class="info-section-title">⛳ The Old Course, St Andrews — daily ballot</div>
-<div class="info-item"><strong>18-hole course</strong><span class="info-detail">. 🐕 Leave dogs at accommodation.</span><br><span class="info-cost">~£340</span> </div></div><div class="info-section"><div class="info-section-title">🐾 &amp; ⛳ Activities</div><div class="info-item"><strong>West Sands Beach — Chariots of Fire beach</strong><span class="info-detail">2 miles of flat sand. Dogs welcome year-round. While David plays.</span><br><span class="info-cost">Free parking</span> <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=West+Sands+Beach+St+Andrews+KY16" target="_blank">🌐 Open</a></div><div class="info-item"><strong>Swilcan Bridge photo</strong><span class="info-detail">Walk the public path along the 18th — free and unmissable.</span> <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=Swilcan+Bridge+St+Andrews" target="_blank">🌐 Open</a></div><div class="info-item"><strong>St Andrews Cathedral &amp; St Rule&#x27;s Tower</strong><span class="info-detail">Atmospheric ruins. Dogs in grounds. Climb tower for the view.</span><br><span class="info-cost">Tower ~6</span> <a class="info-link" href="https://www.historicenvironment.scot/visit-a-place/places/st-andrews-cathedral/" target="_blank">🌐 Open</a></div><div class="info-item"><strong>R&amp;A World Golf Museum</strong><span class="info-detail">Opposite 1st tee. Dog-friendly outdoor cafe terrace.</span><br><span class="info-cost">~12pp</span> <a class="info-link" href="https://www.worldgolfmuseum.com" target="_blank">🌐 Open</a></div></div><div class="info-section"><div class="info-section-title">🍽 Eating</div><div class="info-item"><strong>Cromars fish &amp; chips</strong><span class="info-detail"></span> <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cromars+Fish+and+Chips+St+Andrews" target="_blank">🌐 Open</a></div><div class="info-item"><strong>The Adamson</strong><span class="info-detail"></span> <a class="info-link" href="https://www.theadamson.com" target="_blank">🌐 Open</a></div><div class="info-item"><strong>Newport Restaurant, Newport-on-Tay</strong><span class="info-detail"></span> <a class="info-link" href="https://www.thenewportrestaurant.co.uk" target="_blank">🌐 Open</a></div></div><div class="info-section"><div class="info-section-title">📌 Tips</div><div class="info-alert">~30% of tee times go via ballot in May/June — better odds than August</div><div class="info-alert">Handicap certificate required on the day — bring WHS index proof</div><div class="info-alert green">Forth Road Bridge is free — no tolls</div><div class="info-alert">If unsuccessful: Crail Balcomie Links — walk-in 9-hole ~60 with hire</div></div>  </div>
+<div class="info-section"><div class="info-section-title">⛳ Crail Balcomie Links</div>
+<div class="info-item"><strong>9-hole course</strong><span class="info-detail">Walk-in welcome, no advance booking or handicap required. Call ahead in peak season.. 🐕 Leave dogs at accommodation.</span><br><span class="info-cost">~£60 with hire</span> <a class="info-link" href="https://www.crailgolfingsociety.co.uk" target="_blank">🌐 Open</a></div></div><div class="info-section"><div class="info-section-title">🐾 &amp; ⛳ Activities</div><div class="info-item"><strong>West Sands Beach — Chariots of Fire beach</strong><span class="info-detail">2 miles of flat sand. Dogs welcome year-round. The Chariots of Fire beach.</span><br><span class="info-cost">Free parking</span> <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=West+Sands+Beach+St+Andrews+KY16" target="_blank">🌐 Open</a></div><div class="info-item"><strong>Swilcan Bridge photo</strong><span class="info-detail">Walk the public path along the 18th — free and unmissable.</span> <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=Swilcan+Bridge+St+Andrews" target="_blank">🌐 Open</a></div><div class="info-item"><strong>St Andrews Cathedral &amp; St Rule&#x27;s Tower</strong><span class="info-detail">Atmospheric ruins. Dogs in grounds. Climb tower for the view.</span><br><span class="info-cost">Tower ~6</span> <a class="info-link" href="https://www.historicenvironment.scot/visit-a-place/places/st-andrews-cathedral/" target="_blank">🌐 Open</a></div><div class="info-item"><strong>R&amp;A World Golf Museum</strong><span class="info-detail">Opposite 1st tee. Dog-friendly outdoor cafe terrace.</span><br><span class="info-cost">~12pp</span> <a class="info-link" href="https://www.worldgolfmuseum.com" target="_blank">🌐 Open</a></div></div><div class="info-section"><div class="info-section-title">🍽 Eating</div><div class="info-item"><strong>Cromars fish &amp; chips</strong><span class="info-detail"></span> <a class="info-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cromars+Fish+and+Chips+St+Andrews" target="_blank">🌐 Open</a></div><div class="info-item"><strong>The Adamson</strong><span class="info-detail"></span> <a class="info-link" href="https://www.theadamson.com" target="_blank">🌐 Open</a></div><div class="info-item"><strong>Newport Restaurant, Newport-on-Tay</strong><span class="info-detail"></span> <a class="info-link" href="https://www.thenewportrestaurant.co.uk" target="_blank">🌐 Open</a></div></div><div class="info-section"><div class="info-section-title">📌 Tips</div><div class="info-alert">Old Course requires WHS handicap (max 24M/36W) — not applicable for this trip</div><div class="info-alert">Crail Balcomie Links: 10 miles east of St Andrews, cliff-top links, walk-in, no handicap needed</div><div class="info-alert green">Alternative: Eden or Strathtyrum courses AT St Andrews — no handicap, call 01334 466666</div><div class="info-alert green">Forth Road Bridge is free — no tolls</div></div>  </div>
 
 </div>
 
@@ -1611,6 +1640,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Portobello Edinburgh EH15 → Musselburgh Old Links Golf Course EH21 → Portobello Beach Edinburgh → Dean Village Edinburgh</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Edinburgh+EH15" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1694,6 +1724,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Portobello Edinburgh EH15 → Alnwick Castle NE66 1NQ → Bamburgh Castle NE69 7DF → Mercure York Fairfield Manor Shipton Road York YO30</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=Bamburgh+NE69" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
@@ -1768,6 +1799,7 @@
     <span class="map-icon">🗺</span>
     <div class="map-btn-text">Open full route in Maps<small>Mercure York Fairfield Manor YO30 → Bettys Cafe Tea Rooms York YO1 2QN → York City Walls Bootham Bar → Pulloxhill Bedfordshire MK45 5HD</small></div>
   </a>
+  <a class="weather-btn" href="https://www.bbc.co.uk/weather/search?q=York+YO1" target="_blank">🌤 Check BBC Weather for today</a>
   <div class="stops-card">
     <div class="stops-card-title">Stops &amp; places of interest</div>
     <div class="stop-item">
