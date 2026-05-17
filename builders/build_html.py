@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""Build output/index.html from data/itinerary.json"""
+"""Build trips/<trip-id>/output/index.html from trips/<trip-id>/data.json"""
 
-import json, os, html
+import argparse, json, os, html
 from datetime import datetime
 
-# ── paths ─────────────────────────────────────────────────────────────────────
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(BASE, 'data', 'itinerary.json')
-OUT  = os.path.join(BASE, 'output', 'index.html')
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 def h(s):
@@ -240,6 +237,13 @@ CSS = """
     color: #bfdbfe;
   }
   .day-stat span { font-weight: 600; color: #fff; }
+  .step-badge {
+    padding: 2px 8px; border-radius: 99px; font-size: 11px;
+    font-weight: 700; color: #fff; white-space: nowrap;
+  }
+  .step-badge.green { background: rgba(22,163,74,0.85); }
+  .step-badge.amber { background: rgba(202,138,4,0.90); }
+  .step-badge.red   { background: rgba(220,38,38,0.90); }
 
   /* ── Big map button ───────────────────────────────────────── */
   .map-btn {
@@ -636,9 +640,19 @@ function showDay(id) {
 
 # ── section builders ──────────────────────────────────────────────────────────
 
-def build_head(trip):
+def build_head(trip, days):
     dogs = trip['dogs']
-    date_range = "23 May – 7 Jun"
+    first = datetime.strptime(days[0]['date'], '%Y-%m-%d')
+    last  = datetime.strptime(days[-1]['date'], '%Y-%m-%d')
+    if first.month == last.month:
+        date_range = f"{first.strftime('%-d')}–{last.strftime('%-d %b')}"
+    else:
+        date_range = f"{first.strftime('%-d %b')} – {last.strftime('%-d %b')}"
+    num_days = len(days)
+    num_dogs = len(dogs)
+    dog_chip = f"🐾 {num_dogs} dog{'s' if num_dogs != 1 else ''}"
+    dogs_sub = ' &amp; '.join(h(d['name']) for d in dogs)
+    title = trip.get('title', 'Trip Guide')
     built = datetime.now().strftime('%-d %b %Y %H:%M')
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -647,7 +661,7 @@ def build_head(trip):
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Scotland Trip 2026 — Route Guide</title>
+<title>{h(title)} — Route Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 {CSS}
@@ -657,13 +671,13 @@ def build_head(trip):
 
 <!-- ── Hero ─────────────────────────────────────────────────────────────────── -->
 <div class="hero">
-  <div class="hero-title">{h(trip['title'])}</div>
-  <div class="hero-sub">{h(trip['travellers'])} · {h(dogs[0]['name'])} &amp; {h(dogs[1]['name'])}</div>
+  <div class="hero-title">{h(title)}</div>
+  <div class="hero-sub">{h(trip['travellers'])} · {dogs_sub}</div>
   <div class="hero-meta">
     <div class="hero-chip">🗓 {date_range}</div>
     <div class="hero-chip">🚗 {h(trip['car']['model'])}</div>
-    <div class="hero-chip">16 days</div>
-    <div class="hero-chip">🐾 2 dogs</div>
+    <div class="hero-chip">{num_days} days</div>
+    <div class="hero-chip">{dog_chip}</div>
     <div class="hero-chip" style="opacity:0.6;font-size:11px">Built {built}</div>
   </div>
 </div>
@@ -717,9 +731,10 @@ def build_overview(days):
     </div>""")
 
     rows_html = '\n'.join(rows)
+    num_days = len(days)
     return f"""<!-- ════════════════════════════════════════════════════════════ OVERVIEW -->
 <div id="overview" class="day-section active">
-  <p class="section-label">All 16 days — tap any to navigate</p>
+  <p class="section-label">All {num_days} days — tap any to navigate</p>
   <div class="overview-grid">
 {rows_html}
   </div>
@@ -845,7 +860,7 @@ def build_ballot_card(day):
   </div>"""
 
 
-def build_info_panel(day, idx):
+def build_info_panel(day, idx, stay=None):
     stops = day.get('stops', [])
     eating = day.get('eating', [])
     notes = day.get('notes', [])
@@ -920,6 +935,21 @@ def build_info_panel(day, idx):
             alerts.append(f'<div class="{cls}">{h(n)}</div>')
         sections.append(f'<div class="info-section"><div class="info-section-title">📌 Tips</div>{"".join(alerts)}</div>')
 
+    # ── Road bike section ─────────────────────────────────────
+    if stay:
+        bike_hire = stay.get('bike_hire')
+        climbs_url = stay.get('climbs_url', '')
+        if bike_hire or climbs_url:
+            items = []
+            if bike_hire:
+                bh_url = h(bike_hire.get('url', ''))
+                bh_link = f'<a class="info-link" href="{bh_url}" target="_blank">🌐 Find</a>' if bh_url else ''
+                climb_note = h(bike_hire.get('climb_note', bike_hire.get('note', '')))
+                items.append(f'<div class="info-item"><strong>{h(bike_hire["name"])}</strong><span class="info-detail">{climb_note}</span> {bh_link}</div>')
+            if climbs_url:
+                items.append(f'<div class="info-item"><strong>Cycling climbs near here — ClimbFinder</strong><span class="info-detail">Named climbs with elevation profiles, gradients, and Strava segments for this region.</span> <a class="info-link" href="{h(climbs_url)}" target="_blank">🏔 Open</a></div>')
+            sections.append(f'<div class="info-section"><div class="info-section-title">🚴 Road cycling</div>{"".join(items)}</div>')
+
     if not sections:
         return ''
 
@@ -953,6 +983,12 @@ def day_stats(d):
         h_str = f'{int(hours)} hr' if hours == int(hours) else f'{hours} hrs'
         stats.append(f'⏱ <span>≈ {h_str}</span>')
 
+    if walk > 0:
+        steps = round(walk * 2000 / 100) * 100
+        step_cls = 'green' if steps < 10000 else ('amber' if steps <= 15000 else 'red')
+        steps_fmt = f'{steps:,}'
+        stats.append(f'🐾 <span>{walk} miles</span> <span class="step-badge {step_cls}">~{steps_fmt} steps</span>')
+
     if 'golf' in flags and d.get('golf'):
         g = d['golf']
         stats.append(f'⛳ <span>{g["holes"]}-hole golf</span>')
@@ -960,8 +996,6 @@ def day_stats(d):
         stats.append('🚂 <span>Train day</span>')
     elif 'ebike' in flags:
         stats.append('🚲 <span>E-bike option</span>')
-    elif walk > 0:
-        stats.append(f'🐾 <span>{walk} miles walking</span>')
 
     return '\n      '.join(f'<div class="day-stat">{s}</div>' for s in stats)
 
@@ -990,7 +1024,8 @@ def build_day_section(day, stays_map):
     stops_card = build_stops_card(day, stays_map)
     notes_card = build_notes_card(day)
     ballot_card = build_ballot_card(day)
-    info_panel = build_info_panel(day, n)
+    stay = stays_map.get(day.get('stay_id')) if day.get('stay_id') else None
+    info_panel = build_info_panel(day, n, stay)
 
     return f"""
 <!-- ════════════════════════════════════════════════════════════ DAY {n} -->
@@ -1101,7 +1136,15 @@ def build_contacts(emergency, bookings):
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    with open(DATA) as f:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--trip', default='scotland-2026', help='Trip ID (folder name under trips/)')
+    args = parser.parse_args()
+
+    trip_dir = os.path.join(BASE, 'trips', args.trip)
+    data_path = os.path.join(trip_dir, 'data.json')
+    out_path  = os.path.join(trip_dir, 'output', 'index.html')
+
+    with open(data_path) as f:
         data = json.load(f)
 
     trip = data['trip']
@@ -1110,7 +1153,7 @@ def main():
     emergency = data.get('emergency_contacts', {})
     bookings = data.get('bookings_required', [])
 
-    parts = [build_head(trip), build_nav(days)]
+    parts = [build_head(trip, days), build_nav(days)]
     parts.append('\n<!-- ── Content ───────────────────────────────────────────────────────────────── -->')
     parts.append('<div class="content">\n')
     parts.append(build_overview(days))
@@ -1124,11 +1167,11 @@ def main():
 
     html_out = ''.join(parts)
 
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, 'w', encoding='utf-8') as f:
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, 'w', encoding='utf-8') as f:
         f.write(html_out)
 
-    print(f"✓ Written {len(html_out):,} bytes → {OUT}")
+    print(f"✓ Written {len(html_out):,} bytes → {out_path}")
     print(f"  {len(days)} days, {len(stays_map)} stays")
 
 

@@ -1,35 +1,38 @@
-# Scotland Trip 2026 — Claude Code Project
+# Trip Planner — Claude Code Project
 
 ## What this project does
 
-Generates two output files from a single JSON data source:
+Generates per-trip output files from a per-trip JSON data source:
 
-1. `output/Scotland_Itinerary_2026.docx` — full Word document itinerary with formatting,
-   colour-coded callout boxes, golf/e-bike panels, appendices, and live links
-2. `output/index.html` — mobile-optimised iPhone/CarPlay route guide hosted at
-   https://underyoureyes.github.io/scotland2026
+1. `trips/<trip-id>/output/<Trip>.docx` — full Word document itinerary
+2. `trips/<trip-id>/output/index.html` — mobile-optimised iPhone/CarPlay route guide
 
-**Single source of truth:** `data/itinerary.json` — edit this file to update both outputs.
+Each trip is self-contained under `trips/<trip-id>/`. Builders and tests accept a `--trip` argument.
+
+**GitHub Pages:** each trip deploys to `https://underyoureyes.github.io/trip-planner/<trip-id>/`
 
 ---
 
 ## Project structure
 
 ```
-scotland_trip/
+trip-planner/
 ├── CLAUDE.md                  ← you are here
-├── data/
-│   └── itinerary.json         ← ALL trip data — edit this to change anything
+├── trips/
+│   ├── scotland-2026/
+│   │   ├── data.json          ← ALL Scotland trip data — edit to change anything
+│   │   └── output/
+│   │       ├── Scotland_Itinerary_2026.docx
+│   │       └── index.html
+│   └── lake-garda-2026/       ← future trips follow the same pattern
+│       ├── data.json
+│       └── output/
 ├── builders/
-│   ├── build_word.js          ← Node.js script generating the .docx
-│   └── build_html.py          ← Python script generating the HTML
+│   └── build_html.py          ← Python script generating the HTML (--trip <id>)
 ├── tests/
-│   └── test_all.py            ← test suite (pytest or python directly)
-├── assets/
-│   └── styles.css             ← shared colour tokens (reference only)
-└── output/
-    ├── Scotland_Itinerary_2026.docx
-    └── index.html
+│   └── test_all.py            ← test suite (--trip <id>)
+└── assets/
+    └── styles.css             ← shared colour tokens (reference only)
 ```
 
 ---
@@ -41,22 +44,16 @@ scotland_trip/
 ```bash
 # Python 3.9+
 pip install pytest docx2txt
-
-# Node.js 18+ and the docx library
-npm install -g docx
 ```
 
-### Generate both outputs
+### Generate outputs for a trip
 
 ```bash
-# Word document
-node builders/build_word.js
-
-# HTML route guide
-python builders/build_html.py
+# HTML route guide (defaults to scotland-2026 if --trip omitted)
+python builders/build_html.py --trip scotland-2026
 
 # Run tests
-python tests/test_all.py
+python tests/test_all.py --trip scotland-2026
 # or
 pytest tests/ -v
 ```
@@ -64,11 +61,8 @@ pytest tests/ -v
 ### Deploy HTML to GitHub Pages
 
 ```bash
-cp output/index.html ../scotland2026/index.html   # adjust path to your gh-pages repo
-cd ../scotland2026
-git add index.html
-git commit -m "Update Scotland route guide"
-git push
+./deploy.sh scotland-2026
+# deploys to https://underyoureyes.github.io/trip-planner/scotland-2026/
 ```
 
 ---
@@ -143,10 +137,10 @@ afternoon_tea_no_dogs  afternoon tea, dogs stay at accommodation
 
 ## How to add a new day / change content
 
-1. Edit `data/itinerary.json`
-2. Run `python tests/test_all.py` — all tests should pass
-3. Run `node builders/build_word.js` and `python builders/build_html.py`
-4. Deploy HTML to GitHub Pages
+1. Edit `trips/<trip-id>/data.json`
+2. Run `python tests/test_all.py --trip <trip-id>` — all tests should pass
+3. Run `python builders/build_html.py --trip <trip-id>`
+4. Deploy: `./deploy.sh <trip-id>`
 
 ## How to add a new stop to a day
 
@@ -169,20 +163,20 @@ Then update `total_walk_miles` for the day if the stop adds walking.
 
 ## Test suite overview
 
-`tests/test_all.py` covers 10 test groups:
+`tests/test_all.py` covers 10 test groups (generic + scotland-2026-specific):
 
-1. **JSON integrity** — 16 days, 7 stays, contiguous dates, required fields
-2. **Walking limits** — every day ≤ 5.0 miles (Koda's limit)
+1. **JSON integrity** — days sequential, stays valid, contiguous dates, required fields
+2. **Walking limits** — every day ≤ most-constrained dog's limit
 3. **Fuel/range safety** — no leg exceeds car range, fuel stops on sparse legs
 4. **Map waypoints** — 2–10 waypoints per day, no empty strings
-5. **URL structure** — all URLs valid http/https, critical domains present
+5. **URL structure** — all URLs valid http/https; critical domains (scotland-2026 only)
 6. **Bookings completeness** — all required bookings defined with priority
-7. **HTML output** — 16 day sections, 16 nav tabs, map links, info panels, content
-8. **Word doc output** — exists, correct size, all 16 days present, key content
+7. **HTML output** — all day sections, nav tabs, map links, info panels, content
+8. **Word doc output** — exists, correct size, all days present, key content
 9. **JSON ↔ HTML consistency** — day titles and stay names match between sources
-10. **Critical safety** — Holy Island tide warning, Jacobite 2-booking rule, Loch Ness RIB warning
+10. **Critical safety** — Holy Island, Jacobite, Loch Ness RIB (scotland-2026 only)
 
-Run with: `python tests/test_all.py`
+Run with: `python tests/test_all.py --trip scotland-2026`
 
 ---
 
@@ -194,4 +188,4 @@ Run with: `python tests/test_all.py`
 - **Route:** Pulloxhill → Gretna → Loch Lomond → Glencoe → Skye → Loch Ness → Edinburgh → York → Home
 - **Total accommodation:** 15 nights across 7 stays
 - **Total cost:** ~£3,281 accommodation + activities
-- **GitHub Pages:** https://underyoureyes.github.io/scotland2026
+- **GitHub Pages:** https://underyoureyes.github.io/trip-planner

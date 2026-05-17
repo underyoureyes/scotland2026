@@ -1,7 +1,7 @@
 """
-Scotland Trip — Test Suite
+Trip Planner — Test Suite
 Run: pytest tests/ -v
-Or:  python tests/test_all.py
+Or:  python tests/test_all.py [--trip <trip-id>]
 """
 
 import json
@@ -17,8 +17,16 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).parent.parent
-DATA = ROOT / "data" / "itinerary.json"
-OUTPUT = ROOT / "output"
+
+def _resolve_trip_id():
+    for i, arg in enumerate(sys.argv):
+        if arg == '--trip' and i + 1 < len(sys.argv):
+            return sys.argv[i + 1]
+    return 'scotland-2026'
+
+TRIP_ID = _resolve_trip_id()
+DATA    = ROOT / 'trips' / TRIP_ID / 'data.json'
+OUTPUT  = ROOT / 'trips' / TRIP_ID / 'output'
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Helpers
@@ -34,12 +42,12 @@ def load_html():
 
 def load_docx_text():
     """Extract raw text from the Word doc if docx2txt is available."""
-    p = OUTPUT / "Scotland_Itinerary_2026.docx"
-    if not p.exists():
+    docx_files = list(OUTPUT.glob('*.docx'))
+    if not docx_files:
         return None
     try:
         import docx2txt
-        return docx2txt.process(str(p))
+        return docx2txt.process(str(docx_files[0]))
     except ImportError:
         return None
 
@@ -69,11 +77,12 @@ def test_json_integrity():
 
     # Days count
     days = data.get("days", [])
-    test("Exactly 16 days", len(days) == 16, f"found {len(days)}")
+    test("At least 1 day defined", len(days) > 0, f"found {len(days)}")
 
-    # Days numbered 1-16 in sequence
+    # Days numbered sequentially from 1
     day_nums = [d["day"] for d in days]
-    test("Days numbered 1–16 sequentially", day_nums == list(range(1, 17)), str(day_nums))
+    expected = list(range(1, len(days) + 1))
+    test(f"Days numbered 1–{len(days)} sequentially", day_nums == expected, str(day_nums))
 
     # Each day has required fields
     required_day_fields = {"day", "date", "title", "leg_miles", "leg_drive_hours",
@@ -87,11 +96,8 @@ def test_json_integrity():
 
     # Stays
     stays = data.get("stays", [])
-    test("7 stays defined", len(stays) == 7, f"found {len(stays)}")
+    test("At least 1 stay defined", len(stays) > 0, f"found {len(stays)}")
     stay_ids = {s["id"] for s in stays}
-    expected_ids = {"gretna", "rowardennan", "ballachulish", "skye", "lochness", "edinburgh", "york"}
-    test("All expected stay IDs present", stay_ids == expected_ids,
-         f"missing: {expected_ids - stay_ids}")
 
     # Each day's stay_id references a valid stay (or is null for last day)
     bad_refs = []
@@ -112,22 +118,20 @@ def test_json_integrity():
             date_errors.append(f"{a['id']} checkout {a['checkout']} overlaps {b['id']} checkin {b['checkin']}")
     test("Stay dates do not overlap", len(date_errors) == 0, "; ".join(date_errors))
 
-    # Total nights = 15 (16 days, home on day 16)
+    # Total nights defined
     total_nights = sum(s["nights"] for s in stays)
-    test("Total accommodation nights = 15", total_nights == 15, f"found {total_nights}")
+    test("Total accommodation nights > 0", total_nights > 0, f"found {total_nights}")
 
     # Dogs defined
     dogs = data.get("trip", {}).get("dogs", [])
-    test("2 dogs defined", len(dogs) == 2, f"found {len(dogs)}")
-    koda = next((d for d in dogs if d["name"] == "Koda"), None)
-    test("Koda defined with age 11", koda is not None and koda.get("age") == 11)
-    monty = next((d for d in dogs if d["name"] == "Monty"), None)
-    test("Monty defined with age 2", monty is not None and monty.get("age") == 2)
+    test("At least 1 dog defined", len(dogs) > 0, f"found {len(dogs)}")
+    for dog in dogs:
+        test(f"Dog '{dog.get('name','?')}' has max_walk_miles defined",
+             "max_walk_miles" in dog)
 
     # Car defined
     car = data.get("trip", {}).get("car", {})
-    test("Car type is PHEV", car.get("type") == "PHEV")
-    test("Car tank range >= 280 miles", car.get("tank_range_miles", 0) >= 280)
+    test("Car tank range defined", car.get("tank_range_miles", 0) > 0)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -135,25 +139,26 @@ def test_json_integrity():
 # ─────────────────────────────────────────────────────────────────────────────
 
 def test_walking_limits():
-    print("\n── 2. Walking Distance Limits (Koda: 5 miles max) ─────────────")
     data = load_json()
-    koda_max = data["trip"]["dogs"][0]["max_walk_miles"]  # 5.0
+    dogs = data["trip"]["dogs"]
+    limit_dog = min(dogs, key=lambda d: d["max_walk_miles"])
+    max_walk = limit_dog["max_walk_miles"]
+    print(f"\n── 2. Walking Distance Limits ({limit_dog['name']}: {max_walk} miles max) ──────────────")
 
     for d in data["days"]:
         total = d.get("total_walk_miles", 0)
         test(
             f"Day {d['day']:2d} ({d['date']}) — {d['title'][:35]}",
-            total <= koda_max,
-            f"{total} miles {'OK' if total <= koda_max else f'EXCEEDS {koda_max} mile limit'}"
+            total <= max_walk,
+            f"{total} miles {'OK' if total <= max_walk else f'EXCEEDS {max_walk} mile limit'}"
         )
 
-    # Also check individual stop walk_miles
     for d in data["days"]:
         for stop in d.get("stops", []):
             w = stop.get("walk_miles", 0)
             test(
                 f"  Day {d['day']} stop '{stop['name'][:30]}' individual walk",
-                w <= koda_max,
+                w <= max_walk,
                 f"{w} miles"
             ) if w > 0 else None
 
@@ -188,17 +193,16 @@ def test_fuel_legs():
             f"{miles} vs {effective_range}"
         )
 
-    # Day 7 (Skye) must have a fuel stop defined (Glendale has no fuel)
-    day7 = next((d for d in data["days"] if d["day"] == 7), None)
-    if day7:
-        has_fuel = any(s.get("type") == "fuel" for s in day7.get("stops", []))
-        test("Day 7 (Skye) has a fuel stop defined", has_fuel, "Kyle of Lochalsh fuel required")
+    if TRIP_ID == 'scotland-2026':
+        day7 = next((d for d in data["days"] if d["day"] == 7), None)
+        if day7:
+            has_fuel = any(s.get("type") == "fuel" for s in day7.get("stops", []))
+            test("Day 7 (Skye) has a fuel stop defined", has_fuel, "Kyle of Lochalsh fuel required")
 
-    # Day 10 (Skye → Loch Ness) must have a fuel stop
-    day10 = next((d for d in data["days"] if d["day"] == 10), None)
-    if day10:
-        has_fuel = any(s.get("type") == "fuel" for s in day10.get("stops", []))
-        test("Day 10 (Skye → Loch Ness) has a fuel stop defined", has_fuel)
+        day10 = next((d for d in data["days"] if d["day"] == 10), None)
+        if day10:
+            has_fuel = any(s.get("type") == "fuel" for s in day10.get("stops", []))
+            test("Day 10 (Skye → Loch Ness) has a fuel stop defined", has_fuel)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -258,21 +262,21 @@ def test_url_structure():
     test(f"All {len(all_urls)} URLs have valid structure", len(bad_urls) == 0,
          ("\n    " + "\n    ".join(bad_urls)) if bad_urls else "")
 
-    # Check specific critical URLs are present
-    critical = {
-        "westcoastrailways.co.uk": "Jacobite",
-        "crailgolfingsociety.co.uk": "Crail golf alternative",
-        "skyeboat-trips.co.uk": "Stardust",
-        "malts.com": "Talisker",
-        "cruiselochness.com": "Loch Ness cruise",
-        "nevisrange.co.uk": "Nevis Range Gondola",
-        "holyislandcrossingtimes.northumberland.gov.uk": "Holy Island tides",
-        "bettys.co.uk": "Bettys York",
-    }
-    url_values = [u for _, u in all_urls]
-    for domain, label in critical.items():
-        present = any(domain in u for u in url_values)
-        test(f"Critical URL present: {label} ({domain})", present)
+    if TRIP_ID == 'scotland-2026':
+        critical = {
+            "westcoastrailways.co.uk": "Jacobite",
+            "crailgolfingsociety.co.uk": "Crail golf alternative",
+            "skyeboat-trips.co.uk": "Stardust",
+            "malts.com": "Talisker",
+            "cruiselochness.com": "Loch Ness cruise",
+            "nevisrange.co.uk": "Nevis Range Gondola",
+            "holyislandcrossingtimes.northumberland.gov.uk": "Holy Island tides",
+            "bettys.co.uk": "Bettys York",
+        }
+        url_values = [u for _, u in all_urls]
+        for domain, label in critical.items():
+            present = any(domain in u for u in url_values)
+            test(f"Critical URL present: {label} ({domain})", present)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -284,7 +288,7 @@ def test_bookings():
     data = load_json()
     bookings = data.get("bookings_required", [])
 
-    test("At least 10 booking items defined", len(bookings) >= 10, f"found {len(bookings)}")
+    test("At least 1 booking item defined", len(bookings) >= 1, f"found {len(bookings)}")
 
     # Each booking has required fields
     required = {"item", "status", "priority"}
@@ -302,12 +306,12 @@ def test_bookings():
     # Weather URLs present on all days
     days = data.get("days", [])
     missing_weather = [d["day"] for d in days if not d.get("weather_url")]
-    test("All 16 days have weather_url", len(missing_weather) == 0)
+    test(f"All {len(days)} days have weather_url", len(missing_weather) == 0)
 
-    # Jacobite status is not_bookable
-    jacobite = next((b for b in bookings if "Jacobite" in b.get("item", "")), None)
-    test("Jacobite status is 'not_bookable'",
-         jacobite is not None and jacobite.get("status") == "not_bookable")
+    if TRIP_ID == 'scotland-2026':
+        jacobite = next((b for b in bookings if "Jacobite" in b.get("item", "")), None)
+        test("Jacobite status is 'not_bookable'",
+             jacobite is not None and jacobite.get("status") == "not_bookable")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -317,6 +321,9 @@ def test_bookings():
 def test_html_output():
     print("\n── 7. HTML Output Validation ───────────────────────────────────")
     html = load_html()
+    data = load_json()
+    num_days = len(data.get("days", []))
+    dogs = data.get("trip", {}).get("dogs", [])
 
     if html is None:
         test("HTML output file exists", False, "output/index.html not found — run builder first")
@@ -325,47 +332,41 @@ def test_html_output():
     test("HTML output file exists", True)
     test("HTML file is non-trivial size", len(html) > 50_000, f"{len(html):,} bytes")
 
-    # All 16 day sections present
-    for i in range(1, 17):
-        test(f"Day {i:2d} section present in HTML",
-             f'id="d{i}"' in html)
+    for i in range(1, num_days + 1):
+        test(f"Day {i:2d} section present in HTML", f'id="d{i}"' in html)
 
-    # Navigation tabs present
-    for i in range(1, 17):
-        test(f"Day {i:2d} nav button present",
-             f"showDay('d{i}')" in html)
+    for i in range(1, num_days + 1):
+        test(f"Day {i:2d} nav button present", f"showDay('d{i}')" in html)
 
-    # Contacts section
     test("Emergency contacts (SOS) section present", 'id="contacts"' in html)
 
-    # Google Maps links
     maps_links = re.findall(r'https://www\.google\.com/maps/dir/[^"\']+', html)
-    test(f"At least 16 Google Maps route links present",
-         len(maps_links) >= 16, f"found {len(maps_links)}")
+    test(f"At least {num_days} Google Maps route links present",
+         len(maps_links) >= num_days, f"found {len(maps_links)}")
 
-    # Info panels (toggle panels)
     panels = re.findall(r'id="p\d+"', html)
-    test(f"16 info panels present",
-         len(panels) >= 16, f"found {len(panels)}")
+    test(f"At least {num_days} info panels present",
+         len(panels) >= num_days, f"found {len(panels)}")
 
-    # Key content checks
-    key_strings = [
-        ("Koda", "Dog Koda named"),
-        ("Monty", "Dog Monty named"),
-        ("Jacobite", "Jacobite mentioned"),
-        ("Nevis Range", "Nevis Range Gondola mentioned"),
-        ("Talisker", "Talisker Distillery mentioned"),
-        ("Glenfinnan", "Glenfinnan Viaduct mentioned"),
-        ("Crail", "Crail golf alternative mentioned"),
-        ("Lindisfarne", "Holy Island mentioned"),
-        ("Bettys", "Bettys York mentioned"),
-        ("Portobello", "Portobello Edinburgh mentioned"),
-        ("ScotRail", "ScotRail fallback mentioned"),
-        ("holyislandcrossingtimes", "Holy Island tide link present"),
-        # Midge info is in the Word doc appendix, not the HTML — skipped here
-    ]
-    for text, label in key_strings:
-        test(label, text.lower() in html.lower())
+    # Generic: all dog names should appear in HTML
+    for dog in dogs:
+        test(f"Dog '{dog['name']}' named in HTML", dog['name'] in html)
+
+    if TRIP_ID == 'scotland-2026':
+        key_strings = [
+            ("Jacobite", "Jacobite mentioned"),
+            ("Nevis Range", "Nevis Range Gondola mentioned"),
+            ("Talisker", "Talisker Distillery mentioned"),
+            ("Glenfinnan", "Glenfinnan Viaduct mentioned"),
+            ("Crail", "Crail golf alternative mentioned"),
+            ("Lindisfarne", "Holy Island mentioned"),
+            ("Bettys", "Bettys York mentioned"),
+            ("Portobello", "Portobello Edinburgh mentioned"),
+            ("ScotRail", "ScotRail fallback mentioned"),
+            ("holyislandcrossingtimes", "Holy Island tide link present"),
+        ]
+        for text, label in key_strings:
+            test(label, text.lower() in html.lower())
 
     # Check no broken internal references
     broken_hrefs = re.findall(r'href="#([^"]+)"', html)
@@ -390,7 +391,8 @@ def test_html_output():
 
 def test_docx_output():
     print("\n── 8. Word Document Validation ─────────────────────────────────")
-    docx_path = OUTPUT / "Scotland_Itinerary_2026.docx"
+    docx_files = list(OUTPUT.glob('*.docx'))
+    docx_path = docx_files[0] if docx_files else OUTPUT / "itinerary.docx"
     test("Word doc exists", docx_path.exists())
 
     if not docx_path.exists():
@@ -407,19 +409,21 @@ def test_docx_output():
         return
 
     test("Word doc text extractable", len(text) > 1000, f"{len(text):,} chars")
+    data = load_json()
+    num_days = len(data.get("days", []))
 
-    # All 16 days present
-    for i in range(1, 17):
+    for i in range(1, num_days + 1):
         test(f"Day {i:2d} heading present in Word doc",
              f"Day {i}" in text or f"Day {i:02d}" in text)
 
-    key_strings = [
-        "Koda", "Monty", "Jacobite", "Talisker", "Glenfinnan",
-        "Nevis Range", "Urquhart", "Portobello", "ScotRail",
-        "Old Course", "Musselburgh", "Bettys"
-    ]
-    for s in key_strings:
-        test(f"'{s}' present in Word doc", s in text)
+    if TRIP_ID == 'scotland-2026':
+        key_strings = [
+            "Koda", "Monty", "Jacobite", "Talisker", "Glenfinnan",
+            "Nevis Range", "Urquhart", "Portobello", "ScotRail",
+            "Old Course", "Musselburgh", "Bettys"
+        ]
+        for s in key_strings:
+            test(f"'{s}' present in Word doc", s in text)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -465,12 +469,14 @@ def test_safety_checks():
     data = load_json()
     html = load_html()
 
-    # Holy Island tidal warning must exist on Day 15
+    if TRIP_ID != 'scotland-2026':
+        test("Safety checks skipped (scotland-2026 specific)", True)
+        return
+
     day15 = next((d for d in data["days"] if d["day"] == 15), None)
     if day15:
         tidal_stops = [s for s in day15.get("stops", []) if s.get("type") == "tidal_warning"]
         test("Day 15 has tidal warning stop for Holy Island", len(tidal_stops) > 0)
-
         tide_url = any(
             "holyislandcrossingtimes" in s.get("url", "") or
             "holyislandcrossingtimes" in s.get("tide_check_url", "")
@@ -478,7 +484,6 @@ def test_safety_checks():
         )
         test("Day 15 tidal stop has tide check URL", tide_url)
 
-    # Jacobite must have dogs_per_booking = 1 and bookings_needed = 2
     jacobite_stop = None
     for d in data["days"]:
         for s in d.get("stops", []):
@@ -490,7 +495,6 @@ def test_safety_checks():
         test("Jacobite: 2 separate bookings needed",
              jacobite_stop.get("bookings_needed") == 2)
 
-    # Loch Ness cruise must flag standard-only (not RIB)
     loch_ness_cruise = None
     for d in data["days"]:
         for s in d.get("stops", []):
@@ -501,18 +505,16 @@ def test_safety_checks():
              "standard" in loch_ness_cruise.get("name", "").lower() or
              "standard" in loch_ness_cruise.get("detail", "").lower())
 
-    # Day 14 walking total = 5.0 (exactly at Koda's limit — needs monitoring)
     day14 = next((d for d in data["days"] if d["day"] == 14), None)
     if day14:
+        dogs = data["trip"]["dogs"]
+        limit_dog = min(dogs, key=lambda d: d["max_walk_miles"])
+        walk_limit = limit_dog["max_walk_miles"]
         walk = day14.get("total_walk_miles", 0)
-        test(f"Day 14 walk ({walk} miles) at or below Koda's 5-mile limit",
-             walk <= 5.0, f"{'AT LIMIT — monitor Koda closely' if walk == 5.0 else ''}")
+        test(f"Day 14 walk ({walk} miles) at or below {limit_dog['name']}'s {walk_limit}-mile limit",
+             walk <= walk_limit, f"{'AT LIMIT — monitor closely' if walk == walk_limit else ''}")
 
     if html:
-        # Smidge (midge repellent) mentioned
-        # Midge advice is in Word doc Appendix E — tested via docx content test
-        test("Tick advice in HTML", "tick" in html.lower())  # ticks ARE in HTML
-        # Tick advice mentioned
         test("Tick advice in HTML", "tick" in html.lower())
 
 
