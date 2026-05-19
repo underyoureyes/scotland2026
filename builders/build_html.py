@@ -650,10 +650,12 @@ def build_head(trip, days):
         date_range = f"{first.strftime('%-d %b')} – {last.strftime('%-d %b')}"
     num_days = len(days)
     num_dogs = len(dogs)
-    dog_chip = f"🐾 {num_dogs} dog{'s' if num_dogs != 1 else ''}"
-    dogs_sub = ' &amp; '.join(h(d['name']) for d in dogs)
+    dog_chip = f"🐾 {num_dogs} dog{'s' if num_dogs != 1 else ''}" if num_dogs else ''
+    dogs_sub = (' &amp; '.join(h(d['name']) for d in dogs)) if num_dogs else ''
+    travellers_line = h(trip['travellers']) + (f' · {dogs_sub}' if dogs_sub else '')
     title = trip.get('title', 'Trip Guide')
     built = datetime.now().strftime('%-d %b %Y %H:%M')
+    car_chip = f'🚗 {h(trip["car"]["model"])}' if trip.get('car', {}).get('model') else ''
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -672,12 +674,12 @@ def build_head(trip, days):
 <!-- ── Hero ─────────────────────────────────────────────────────────────────── -->
 <div class="hero">
   <div class="hero-title">{h(title)}</div>
-  <div class="hero-sub">{h(trip['travellers'])} · {dogs_sub}</div>
+  <div class="hero-sub">{travellers_line}</div>
   <div class="hero-meta">
     <div class="hero-chip">🗓 {date_range}</div>
-    <div class="hero-chip">🚗 {h(trip['car']['model'])}</div>
+    {'<div class="hero-chip">' + car_chip + '</div>' if car_chip else ''}
     <div class="hero-chip">{num_days} days</div>
-    <div class="hero-chip">{dog_chip}</div>
+    {'<div class="hero-chip">' + dog_chip + '</div>' if dog_chip else ''}
     <div class="hero-chip" style="opacity:0.6;font-size:11px">Built {built}</div>
   </div>
 </div>
@@ -860,7 +862,7 @@ def build_ballot_card(day):
   </div>"""
 
 
-def build_info_panel(day, idx, stay=None):
+def build_info_panel(day, idx, stay=None, dogs=None):
     stops = day.get('stops', [])
     eating = day.get('eating', [])
     notes = day.get('notes', [])
@@ -888,7 +890,8 @@ def build_info_panel(day, idx, stay=None):
         sections.append(f"""<div class="info-section"><div class="info-section-title">☕ Afternoon tea option</div>
 <div class="info-item"><strong>{h(afternoon_tea['name'])}</strong><span class="info-detail">{h(afternoon_tea.get('detail',''))}</span><br><span class="info-cost">{h(afternoon_tea.get('cost',''))}</span> {at_url}</div></div>""")
 
-    # ── Dog activities section ────────────────────────────────
+    # ── Activities section ────────────────────────────────────
+    dogs = dogs or []
     dog_stops = [s for s in stops if s.get('type', '') not in ('fuel', 'lunch_fuel')]
     if dog_stops:
         items = []
@@ -904,11 +907,18 @@ def build_info_panel(day, idx, stay=None):
             link_html = f'<a class="info-link" href="{h(link_href)}" target="_blank">🌐 Open</a>' if link_href else ''
             cost_html = f'<br><span class="info-cost">{h(cost)}</span>' if cost else ''
             items.append(f'<div class="info-item"><strong>{name}</strong><span class="info-detail">{detail}</span>{cost_html} {link_html}</div>')
-        title = '🐾 With Koda &amp; Monty'
         if 'train' in flags:
             title = '🚂 Train &amp; activities'
         elif 'golf' in flags:
-            title = '🐾 &amp; ⛳ Activities'
+            if dogs:
+                title = '🐾 &amp; ⛳ Activities'
+            else:
+                title = '⛳ Activities'
+        elif dogs:
+            dog_names = ' &amp; '.join(h(d['name']) for d in dogs)
+            title = f'🐾 With {dog_names}'
+        else:
+            title = '📍 Activities'
         sections.append(f'<div class="info-section"><div class="info-section-title">{title}</div>{"".join(items)}</div>')
 
     # ── Eating section ────────────────────────────────────────
@@ -970,12 +980,13 @@ def map_subtitle(waypoints):
     return ' → '.join(w.split(',')[0].split(' ')[0:3] for w in key)
 
 
-def day_stats(d):
+def day_stats(d, dogs=None):
     flags = d.get('flags', [])
     miles = d['leg_miles']
     hours = d['leg_drive_hours']
     walk = d.get('total_walk_miles', 0)
     stops = d.get('stops', [])
+    walk_icon = '🐾' if dogs else '🚶'
 
     stats = [f'🚗 <span>≈ {miles} miles</span>']
 
@@ -987,7 +998,7 @@ def day_stats(d):
         steps = round(walk * 2000 / 100) * 100
         step_cls = 'green' if steps < 10000 else ('amber' if steps <= 15000 else 'red')
         steps_fmt = f'{steps:,}'
-        stats.append(f'🐾 <span>{walk} miles</span> <span class="step-badge {step_cls}">~{steps_fmt} steps</span>')
+        stats.append(f'{walk_icon} <span>{walk} miles</span> <span class="step-badge {step_cls}">~{steps_fmt} steps</span>')
 
     if 'golf' in flags and d.get('golf'):
         g = d['golf']
@@ -1000,7 +1011,7 @@ def day_stats(d):
     return '\n      '.join(f'<div class="day-stat">{s}</div>' for s in stats)
 
 
-def build_day_section(day, stays_map):
+def build_day_section(day, stays_map, dogs=None):
     n = day['day']
     flags = day.get('flags', [])
     flag_emojis = ''.join(FLAG_EMOJI[f] for f in flags if f in FLAG_EMOJI)
@@ -1025,7 +1036,7 @@ def build_day_section(day, stays_map):
     notes_card = build_notes_card(day)
     ballot_card = build_ballot_card(day)
     stay = stays_map.get(day.get('stay_id')) if day.get('stay_id') else None
-    info_panel = build_info_panel(day, n, stay)
+    info_panel = build_info_panel(day, n, stay, dogs=dogs)
 
     return f"""
 <!-- ════════════════════════════════════════════════════════════ DAY {n} -->
@@ -1034,7 +1045,7 @@ def build_day_section(day, stays_map):
     <div class="day-number">Day {n} · {h(date_display)}</div>
     <div class="day-title">{h(day['title'])}</div>
     <div class="day-stats">
-      {day_stats(day)}
+      {day_stats(day, dogs=dogs)}
     </div>
   </div>
   <a class="map-btn" href="{map_url}" target="_blank">
@@ -1159,7 +1170,7 @@ def main():
     parts.append(build_overview(days))
 
     for day in days:
-        parts.append(build_day_section(day, stays_map))
+        parts.append(build_day_section(day, stays_map, dogs=trip.get('dogs', [])))
 
     parts.append(build_contacts(emergency, bookings))
     parts.append('\n</div><!-- end .content -->\n')

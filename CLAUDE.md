@@ -24,9 +24,10 @@ trip-planner/
 │   │   └── output/
 │   │       ├── Scotland_Itinerary_2026.docx
 │   │       └── index.html
-│   └── lake-garda-2026/       ← future trips follow the same pattern
-│       ├── data.json
+│   └── lake-garda-2026/
+│       ├── data.json          ← ALL Lake Garda trip data — edit to change anything
 │       └── output/
+│           └── index.html     ← HTML only (no Word doc for this trip)
 ├── builders/
 │   └── build_html.py          ← Python script generating the HTML (--trip <id>)
 ├── tests/
@@ -180,7 +181,9 @@ Run with: `python tests/test_all.py --trip scotland-2026`
 
 ---
 
-## Trip summary
+## Trip summaries
+
+### Scotland 2026
 
 - **Dates:** 23 May – 7 June 2026
 - **Travellers:** David & Lesley + Koda (age 11) + Monty (age 2)
@@ -188,4 +191,20 @@ Run with: `python tests/test_all.py --trip scotland-2026`
 - **Route:** Pulloxhill → Gretna → Loch Lomond → Glencoe → Skye → Loch Ness → Edinburgh → York → Home
 - **Total accommodation:** 15 nights across 7 stays
 - **Total cost:** ~£3,281 accommodation + activities
-- **GitHub Pages:** https://underyoureyes.github.io/trip-planner
+- **GitHub Pages:** https://underyoureyes.github.io/trip-planner/scotland-2026/
+
+### Lake Garda 2026
+
+- **Dates:** 31 Aug – 7 Sep 2026 (8 days, 7 nights)
+- **Travellers:** David & Lesley (no dogs)
+- **Transport:** Riviera Travel coach tour — all daytime excursions with guide
+- **Flights:** BA LHR 11:50 → VCE 15:05 (outbound); BA VCE 14:20 → LHR 15:45 (return)
+- **Hotel:** Hotel Europa SkyPool & Panorama 4★, Piazza Catena 13, Riva del Garda — B&B basis
+- **Hotel URL:** https://www.hoteleuropariva.it/en/
+- **Free days:** Day 1 (afternoon only after ~16:30 arrival), Day 4 (full free day)
+- **Day 4 plan:** Morning road bike ride Riva → Torbole (~30km, 2-3 hrs via CCT Bike Rental Arco); afternoon Bastione/Cascata del Varone/Arco/Golf Bogliaco
+- **Nearest golf:** Golf Bogliaco, Gargnano (18-hole PAR 70, ~13 miles west shore, taxi ~€35 each way)
+- **Excursions:** Sirmione (Day 2), Malcesine/Monte Baldo (Day 3), Limone (Day 5), Bardolino wine (Day 6), Verona (Day 7)
+- **Evening dining:** 3 options per night (€/€€/€€€). Best restaurant: Al Volt (Via Fiume 73). Last night: Ristorante Arche Verona
+- **No word doc** — HTML only for this trip
+- **GitHub Pages:** https://underyoureyes.github.io/trip-planner/lake-garda-2026/

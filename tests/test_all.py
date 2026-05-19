@@ -534,6 +534,8 @@ SKIP_DOMAINS = {
     "maps.google.com",
     # Booking.com blocks headless requests with 403 even for valid URLs.
     "www.booking.com",
+    # AccuWeather blocks automated requests with 503 even for valid URLs.
+    "www.accuweather.com",
 }
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
@@ -659,7 +661,7 @@ def test_live_links():
             ok.append(url)
         elif code in (301, 302, 307, 308):
             redirected.append((url, code))
-        elif code in (403, 429):
+        elif code in (403, 429, 500, 503):
             bot_blocked.append((url, code))      # bot-blocked ≠ dead
         else:
             broken.append((url, code, err))      # 404, 410, 0 = genuinely broken
