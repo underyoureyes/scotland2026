@@ -819,11 +819,28 @@ def build_stops_card(day, stays_map):
         night_str = f'{nights} nights' if nights > 1 else 'Overnight'
         stay_emoji = STAY_EMOJI.get(stay['type'], '🏡')
         acc_name = h(stay['name'])
-        acc_detail = h(stay.get('location', ''))
         acc_url = stay.get('url', '')
         acc_query = stay.get('location', stay['name'])
         map_link = f'<a class="stop-link" href="{maps_search(acc_query)}" target="_blank">📍 Map</a>'
         web_link = f'<a class="stop-link green-link" href="{h(acc_url)}" target="_blank" style="margin-left:6px">🌐 Website</a>' if acc_url else ''
+        detail_parts = []
+        if stay.get('location'):
+            detail_parts.append(h(stay['location']))
+        cin = stay.get('checkin_time')
+        cout = stay.get('checkout_time')
+        if cin or cout:
+            times = []
+            if cin:
+                times.append(f'Check-in {cin}')
+            if cout:
+                times.append(f'Checkout {cout}')
+            detail_parts.append(' · '.join(times))
+        if stay.get('access'):
+            detail_parts.append(f'🔑 {h(stay["access"])}')
+        if stay.get('what3words'):
+            w3w = h(stay['what3words'])
+            detail_parts.append(f'///{w3w}')
+        acc_detail = ' — '.join(detail_parts)
         items.append(f"""    <div class="stop-item">
       <div class="stop-left"><div class="stop-dot end">{stay_emoji}</div></div>
       <div class="stop-right">

@@ -31,14 +31,18 @@
   "stays": [
     {
       "id": "gretna",
-      "name": "Gretna Airbnb",
-      "location": "Gretna, DG16",
+      "name": "Home in Gretna — Glamping Pod (Hosted by Gareth)",
+      "location": "Redkirk, Gretna, Scotland DG16 5EY",
+      "what3words": "scorecard.command.revolts",
       "nights": 1,
       "checkin": "2026-05-23",
+      "checkin_time": "15:00",
       "checkout": "2026-05-24",
+      "checkout_time": "10:00",
       "type": "airbnb",
       "url": "https://www.airbnb.co.uk/rooms/1339041715570625389?adults=2&check_in=2026-05-23&check_out=2026-05-24",
       "cost_gbp": 0,
+      "access": "Key safe to the right of the main pod door — code 0504",
       "confirm_socket_with_host": true,
       "bike_hire": {
         "name": "Road bike hire near Gretna",
@@ -186,7 +190,7 @@
         "Leicester Forest East Services M1 J21",
         "Tebay Services Westmorland M6 J38 northbound Cumbria",
         "Gretna Green Famous Blacksmiths Shop DG16",
-        "Gretna DG16"
+        "Redkirk Gretna DG16 5EY"
       ],
       "stops": [
         {
