@@ -284,8 +284,8 @@
         },
         {
           "name": "Chatelherault Country Park, Hamilton",
-          "type": "dog_walk",
-          "detail": "Aim ~11:25. ~100 miles from Gretna, M74 J6. Stunning Duke's Bridge walk, off-lead woodland. Excellent facilities. 30 min comfort break. Aim ~11:00.",
+          "type": "lunch_fuel",
+          "detail": "Aim ~11:20 — lunch stop, allow 1 hour. Visitor centre café on site. ~100 miles from Gretna, M74 J6. Stunning Duke's Bridge walk, off-lead woodland. Excellent facilities.",
           "cost": "Free",
           "walk_miles": 0.5,
           "maps_query": "Chatelherault Country Park Hamilton ML3 7UE"
@@ -293,7 +293,7 @@
         {
           "name": "Dumbarton Castle — roadside photo stop",
           "type": "photo_stop",
-          "detail": "Aim ~12:30. Medieval castle on a dramatic 73m volcanic rock at the Clyde/Leven confluence — directly on the A82, zero detour. Dogs not permitted inside but the riverside park at the base is a great 10-min leg-stretch with the castle as backdrop. Mary Queen of Scots left for France from here aged 5.",
+          "detail": "Aim ~13:00. Medieval castle on a dramatic 73m volcanic rock at the Clyde/Leven confluence — directly on the A82, zero detour. Dogs not permitted inside but the riverside park at the base is a great 10-min leg-stretch with the castle as backdrop. Mary Queen of Scots left for France from here aged 5.",
           "cost": "Free (exterior)",
           "maps_query": "Dumbarton Castle G82 1JF",
           "walk_miles": 0.2
@@ -301,20 +301,20 @@
         {
           "name": "Co-op Food — Balloch (stock-up point)",
           "type": "supplies",
-          "detail": "Aim ~12:45. Pass through Balloch on the way to Rowardennan — best chance to stock up before the remote loch-side road. Carrochan Road, G83 8BW. Open every day 07:00–22:00. Morrisons in Alexandria (~4 miles) for a bigger shop.",
+          "detail": "Aim ~13:15. Pass through Balloch on the way to Rowardennan — best chance to stock up before the remote loch-side road. Carrochan Road, G83 8BW. Open every day 07:00–22:00. Morrisons in Alexandria (~4 miles) for a bigger shop.",
           "maps_query": "Co-op Food Carrochan Road Balloch G83 8BW"
         },
         {
           "name": "Loch Lomond Shores, Balloch",
           "type": "dog_walk",
-          "detail": "Aim ~13:05. First sight of the loch. Lochside boardwalk, cafes, dog walk. 30 min stop.",
+          "detail": "Aim ~13:35. First sight of the loch. Lochside boardwalk, cafes, dog walk. 30 min stop.",
           "maps_query": "Loch Lomond Shores Balloch G83",
           "walk_miles": 0.3
         },
         {
           "name": "Duncryne Hill ('The Dumpling'), Gartocharn",
           "type": "sightseeing_dogs",
-          "detail": "Aim ~13:50. Hidden gem — a tiny round volcanic hill (142m) just off the A811 at Gartocharn giving what many regard as the finest panoramic view of Loch Lomond for the least effort anywhere: islands, Ben Lomond and the Highlands spread out below you. 35–40 min walk up and back, 88m ascent. Dogs welcome on open access land — on lead near livestock. Small layby parking on Duncryne Road (G83 8NE). Free.",
+          "detail": "Aim ~14:05. Hidden gem — a tiny round volcanic hill (142m) just off the A811 at Gartocharn giving what many regard as the finest panoramic view of Loch Lomond for the least effort anywhere: islands, Ben Lomond and the Highlands spread out below you. 35–40 min walk up and back, 88m ascent. Dogs welcome on open access land — on lead near livestock. Small layby parking on Duncryne Road (G83 8NE). Free.",
           "cost": "Free",
           "url": "https://www.walkhighlands.co.uk/lochlomond/duncryne.shtml",
           "maps_query": "Duncryne Hill Gartocharn G83 8NE",
@@ -323,26 +323,17 @@
         {
           "name": "Drymen Co-op",
           "type": "supplies",
-          "detail": "Aim ~14:43. Last shop before Rowardennan. Stock up for 3 nights. Mon-Sat 07:00-22:00, Sun 08:00-20:00.",
+          "detail": "Aim ~15:05. Last shop before Rowardennan. Stock up for 3 nights. Mon-Sat 07:00-22:00, Sun 08:00-20:00.",
           "maps_query": "Drymen The Square G63 0BL"
         },
         {
           "name": "Balmaha Bay & Jetty",
           "type": "photo_stop",
-          "detail": "Aim ~14:58. Lochside jetty facing west across to Inchcailloch island — great afternoon light over the water with Ben Lomond behind. 10–15 min stop. National Park car park on site (£2.10/2hrs). Dogs welcome on the shore.",
+          "detail": "Aim ~15:28. Lochside jetty facing west across to Inchcailloch island — great afternoon light over the water with Ben Lomond behind. 10–15 min stop. National Park car park on site (£2.10/2hrs). Dogs welcome on the shore.",
           "cost": "£2.10 parking",
           "url": "https://www.lochlomond-trossachs.org/discover-the-park/towns-villages/balmaha/",
           "maps_query": "Balmaha Bay Loch Lomond G63 0JQ",
           "walk_miles": 0.2
-        },
-        {
-          "name": "Cashel Forest, East Loch Lomond",
-          "type": "sightseeing_dogs",
-          "detail": "Aim ~15:20 — skip if behind schedule, it's on the road anyway. Millennium native woodland on the lochside, directly on the B837 between Balmaha and Rowardennan — zero detour. Waymarked trails with viewpoint platforms looking across to Ben Lomond. Dogs welcome throughout. Red squirrels, roe deer, osprey on the loch. £3 car park (cash or contactless).",
-          "cost": "£3 parking",
-          "url": "https://cashel.org.uk",
-          "maps_query": "Cashel Forest Loch Lomond G63 0AW",
-          "walk_miles": 0.5
         }
       ],
       "eating": [
@@ -361,11 +352,11 @@
         }
       ],
       "notes": [
-        "Leave Gretna by 10:00 — check-in Rowardennan 16:30. 32 min buffer if all stops done; stay disciplined at each stop.",
+        "Leave Gretna by 10:00 — check-in Rowardennan 16:30. 25 min buffer without Cashel Forest stop.",
+        "Cashel Forest is on the B837 between Balmaha and Rowardennan — you'll drive through it. No time to stop with 1-hr lunch, but enjoy it through the windscreen.",
         "Fuel: Asda Hamilton near Chatelherault (already stopping there) is cheapest on this route — fill up there. Avoid Drymen Co-op petrol — tiny rural forecourt, premium price. No fuel at Rowardennan.",
-        "Last 7 miles from Drymen is single-track B837 — can be slow behind campervans, allow extra time.",
-        "Duncryne Hill is the longest stop (45 min) — worth it but if already late, drive on and do Balmaha + Cashel instead.",
-        "Cashel Forest is the last stop before Rowardennan — if on schedule it's a lovely 20 min walk; if behind, skip and go straight to the lodge.",
+        "Last 7 miles from Drymen is single-track B837 — can be slow behind campervans. Leave Balmaha by 15:35 to be safe.",
+        "Duncryne Hill is 45 min — if running late after Loch Lomond Shores, skip it and go straight to Drymen.",
         "Plug in BMW at Airbnb overnight"
       ],
       "weather_url": "https://www.bbc.co.uk/weather/2639050"
