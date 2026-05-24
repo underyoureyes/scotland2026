@@ -439,14 +439,15 @@
     {
       "day": 4,
       "date": "2026-05-26",
-      "title": "WHW Walk + Doune Castle",
+      "title": "WHW Walk + Loch Lomond Cruise + Doune Castle",
       "stay_id": "rowardennan",
-      "leg_miles": 50,
-      "leg_drive_hours": 1.5,
+      "leg_miles": 55,
+      "leg_drive_hours": 2.0,
       "total_walk_miles": 3.0,
       "map_waypoints": [
         "Rowardennan Loch Lomond G63 0AR",
         "Ross Wood Rowardennan Loch Lomond",
+        "Balmaha Boatyard Balmaha G63 0JQ",
         "Doune Castle Doune FK16 6EA",
         "Rowardennan Loch Lomond G63 0AR"
       ],
@@ -474,10 +475,13 @@
           "maps_query": "Doune Castle Doune FK16 6EA"
         },
         {
-          "name": "Aberfoyle — e-bike & road bike hire (optional)",
-          "type": "ebike_optional",
-          "detail": "Aberfoyle is 10 miles west of Doune on the A873. E-bike hire at the Forest Visitor Centre for Queen Elizabeth Forest Park trails. Road cyclists: the Duke's Pass (A821) is a classic Scottish climb — 5km at 6% with spectacular Trossachs views.",
-          "maps_query": "bike hire Aberfoyle Queen Elizabeth Forest Park FK8"
+          "name": "Cruise Loch Lomond — Explorer Cruise from Balmaha",
+          "type": "cruise_dogs",
+          "detail": "Balmaha Boatyard is 2 miles south of your lodge. Hop-on hop-off Explorer cruise visiting Luss, Inversnaid and island stops on Loch Lomond. Dogs welcome on deck. ~1.5–2 hrs. Book ahead — Explorer ticket runs Tue–Sun (not Bank Holidays). Aim for a morning departure to fit Doune Castle in the afternoon.",
+          "cost": "~£18pp",
+          "url": "https://www.cruiselochlomond.co.uk",
+          "maps_query": "Balmaha Boatyard Balmaha G63 0JQ",
+          "book_ahead": true
         }
       ],
       "eating": [
@@ -495,8 +499,10 @@
         }
       ],
       "notes": [
-        "Max walk today: 3 miles (Ross Wood and back) — well within Koda's limit",
-        "Check Doune Castle opening times: historicenvironment.scot"
+        "Morning: WHW walk from Rowardennan (3 miles) — then 2 miles to Balmaha for the cruise.",
+        "🚢 Book Cruise Loch Lomond Explorer ticket in advance — cruiselochlomond.co.uk or 01301 702 356. Runs Tue–Sun.",
+        "Afternoon: Doune Castle is ~30 miles south of Balmaha via Drymen (~45 min drive).",
+        "Check Doune Castle opening times before you go: historicenvironment.scot"
       ],
       "weather_url": "https://www.bbc.co.uk/weather/2639050"
     },
