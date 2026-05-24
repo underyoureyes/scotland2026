@@ -1,9 +1,5 @@
--- Trip Planner App — Initial Schema (PoC)
--- Run this in Supabase SQL Editor (Settings → SQL Editor → New query)
-
 create extension if not exists "pgcrypto";
 
--- Invite Codes
 create table if not exists invite_codes (
   id          uuid primary key default gen_random_uuid(),
   code        text not null unique,
@@ -19,7 +15,6 @@ insert into invite_codes (code, expires_at)
 values ('TRIPPLAN2026', now() + interval '365 days')
 on conflict (code) do nothing;
 
--- Profiles
 create table if not exists profiles (
   id             uuid primary key references auth.users(id) on delete cascade,
   name           text not null default '',
@@ -46,16 +41,14 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure handle_new_user();
 
--- User Settings
 create table if not exists user_settings (
   user_id        uuid primary key references auth.users(id) on delete cascade,
-  claude_api_key text,  -- PoC: plaintext. Production: AES-256-GCM encrypt before insert.
+  claude_api_key text,
   distance_unit  text not null default 'metric' check (distance_unit in ('metric','imperial')),
   currency       text not null default 'GBP',
   updated_at     timestamptz not null default now()
 );
 
--- Trips
 create table if not exists trips (
   id          uuid primary key default gen_random_uuid(),
   owner_id    uuid not null references auth.users(id) on delete cascade,
@@ -73,7 +66,6 @@ create table if not exists trips (
 create index if not exists idx_trips_owner_id on trips(owner_id);
 create index if not exists idx_trips_is_shared on trips(is_shared) where is_shared = true;
 
--- Trip Data
 create table if not exists trip_data (
   trip_id    uuid primary key references trips(id) on delete cascade,
   data       jsonb not null,
@@ -81,7 +73,6 @@ create table if not exists trip_data (
   updated_at timestamptz not null default now()
 );
 
--- RLS
 alter table profiles      enable row level security;
 alter table user_settings enable row level security;
 alter table trips         enable row level security;
@@ -98,23 +89,24 @@ drop policy if exists "trips_owner" on trips;
 create policy "trips_owner" on trips for all using (auth.uid() = owner_id);
 
 drop policy if exists "trips_shared_read" on trips;
-create policy "trips_shared_read" on trips for select using (is_shared = true and auth.uid() is not null);
+create policy "trips_shared_read" on trips
+  for select using (is_shared = true and auth.uid() is not null);
 
 drop policy if exists "trip_data_owner" on trip_data;
-create policy "trip_data_owner" on trip_data for all using (
-  exists (select 1 from trips where trips.id = trip_data.trip_id and trips.owner_id = auth.uid())
-);
+create policy "trip_data_owner" on trip_data
+  for all using (
+    trip_id in (select id from trips where owner_id = auth.uid())
+  );
 
 drop policy if exists "trip_data_shared" on trip_data;
-create policy "trip_data_shared" on trip_data for select using (
-  exists (select 1 from trips where trips.id = trip_data.trip_id and trips.is_shared = true)
-);
+create policy "trip_data_shared" on trip_data
+  for select using (
+    trip_id in (select id from trips where is_shared = true)
+  );
 
 drop policy if exists "invite_codes_read" on invite_codes;
 create policy "invite_codes_read" on invite_codes for select using (true);
 
--- Helper: generate more invite codes
--- Usage: SELECT create_invite_code('SCOTLAND26', 90);
 create or replace function create_invite_code(p_code text, p_days_valid int default 30)
 returns void as $$
 begin
