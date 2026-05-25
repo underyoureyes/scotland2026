@@ -545,29 +545,23 @@
       ],
       "stops": [
         {
-          "name": "Co-op Food — Ballachulish (near stay)",
-          "type": "supplies",
-          "detail": "In Ballachulish village, ~1–2 miles from Glencoe village. Park Road, PH49 4JS. Bakery, Costa Coffee, Post Office. Open every day 07:00–22:00. Morrisons Fort William (~10 miles north) for a full supermarket.",
-          "maps_query": "Co-op Food Park Road Ballachulish PH49 4JS"
-        },
-        {
           "name": "Real Food Cafe, Tyndrum",
           "type": "lunch_dogs",
-          "detail": "Best fish & chips on the A82. Dog-friendly outdoor seating.",
+          "detail": "Aim: ~11:45. Best fish & chips on the A82. Dog-friendly outdoor seating. Allow 45 mins.",
           "url": "https://therealfoodcafe.com",
           "maps_query": "Real Food Cafe Tyndrum FK20 8RY"
         },
         {
           "name": "Dragon's Tooth Golf, Woodlands Glencoe",
           "type": "golf",
-          "detail": "9 holes, mountain backdrop. Club hire included. Dogs welcome on site.",
+          "detail": "Aim: ~13:00. 9 holes, mountain backdrop. Club hire included. Dogs welcome on site. Allow 2 hrs — done by ~15:00.",
           "url": "https://www.woodlands.scot",
           "maps_query": "Woodlands Glencoe PH49 4AA"
         },
         {
           "name": "Glencoe Village",
           "type": "sightseeing_dogs",
-          "detail": "Short walk in the valley. NTS Visitor Centre nearby.",
+          "detail": "Aim: ~15:10. Short stop in the valley — stretch the legs before check-in. NTS Visitor Centre nearby.",
           "maps_query": "Glencoe Village PH49"
         },
         {
@@ -595,8 +589,9 @@
         }
       ],
       "notes": [
+        "🕙 Leave Rowardennan 10:30 → Tyndrum ~11:45 (lunch) → Golf ~13:00 → Glencoe ~15:10 → Check-in Ballachulish 16:00 ✓",
+        "⛽ Fuel: fill up at Callander or Asda Stirling before joining the A82 — Tyndrum & Glencoe forecourts are expensive. Green Welly Tyndrum as last resort.",
         "A82 north from Tarbet is one of Scotland's great drives — enjoy it",
-        "Fuel: Tyndrum and Glencoe garages are expensive rural prices — fill at Stirling Asda or Callander Tesco before heading north on A82 if possible. If caught short, Tyndrum Green Welly has a forecourt.",
         "Plug in BMW at Ballachulish tonight"
       ],
       "weather_url": "https://www.bbc.co.uk/weather/2656569"
