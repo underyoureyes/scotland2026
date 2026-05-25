@@ -443,12 +443,13 @@
       "stay_id": "rowardennan",
       "leg_miles": 75,
       "leg_drive_hours": 2.5,
-      "total_walk_miles": 1.5,
+      "total_walk_miles": 1.7,
       "map_waypoints": [
         "Rowardennan Loch Lomond G63 0AR",
         "Balmaha Boatyard Balmaha G63 0JQ",
         "Drymen G63 0BN",
         "Callander FK17 8BQ",
+        "Trossachs Woollen Mill Kilmahog FK17 8HD",
         "Doune Castle Doune FK16 6EA",
         "Rowardennan Loch Lomond G63 0AR"
       ],
@@ -469,6 +470,15 @@
           "cost": "Free",
           "maps_query": "Callander town centre FK17 8BQ",
           "walk_miles": 0.5
+        },
+        {
+          "name": "Trossachs Woollen Mill — Highland Cows, Kilmahog",
+          "type": "sightseeing_dogs",
+          "detail": "Meet Hamish Dubh, Honey & Baxter — three resident Highland coos you can hand-feed. Buy a goodie bag in the shop. Free to see. Café, cashmere and souvenirs on site. 5 min from Callander on the A84 — on the road to Doune.",
+          "cost": "Free (goodie bags ~£2)",
+          "url": "https://trossachswoollenmill.co.uk",
+          "maps_query": "Trossachs Woollen Mill Kilmahog FK17 8HD",
+          "walk_miles": 0.2
         },
         {
           "name": "⛽ Petrol — fill up here (150 miles in tank)",
