@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import { streamTripGeneration, parseTripJson } from '@/lib/claude'
 import type { IntakeForm } from '@/lib/types'
 
@@ -78,11 +78,7 @@ export async function POST(
 
         const { error: saveError } = await supabase
           .from('trip_data')
-          .upsert({
-            trip_id: params.id,
-            data: tripData,
-            version: 1,
-          })
+          .upsert({ trip_id: params.id, data: tripData, version: 1 })
 
         if (saveError) {
           await supabase.from('trips').update({ status: 'error' }).eq('id', params.id)
