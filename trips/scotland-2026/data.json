@@ -743,12 +743,6 @@
           "maps_query": "petrol station Kyle of Lochalsh IV40"
         },
         {
-          "name": "Co-op Food — Kyle of Lochalsh (stock up before Glendale)",
-          "type": "supplies",
-          "detail": "Right by the Skye Bridge. Critical stop — Glendale is very remote, nearest shop 28+ miles. 1 Bridge Road, Kyle of Lochalsh IV40 8BH. Open every day 07:00–22:00.",
-          "maps_query": "Co-op Food 1 Bridge Road Kyle of Lochalsh IV40 8BH"
-        },
-        {
           "name": "Skye Bridge",
           "type": "photo_stop",
           "detail": "Toll-free. Lay-by on Skye side for photos.",

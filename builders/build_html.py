@@ -709,12 +709,20 @@ def build_nav(days):
         suffix = f' {extras}' if extras else ''
         btns.append(f'<button class="nav-btn" onclick="showDay(\'d{n}\')">Day {n}{suffix}</button>')
     btns.append('<button class="nav-btn" onclick="showDay(\'contacts\')">📞 SOS</button>')
+    date_map = ', '.join(f'"{d["date"]}":"d{d["day"]}"' for d in days)
     return f"""<!-- ── Nav ──────────────────────────────────────────────────────────────────── -->
 <div class="nav-wrap">
   <div class="nav-scroll">
     {''.join(btns)}
   </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {{
+  var today = new Date().toISOString().slice(0, 10);
+  var dayMap = {{{date_map}}};
+  if (dayMap[today]) showDay(dayMap[today]);
+}});
+</script>
 """
 
 
